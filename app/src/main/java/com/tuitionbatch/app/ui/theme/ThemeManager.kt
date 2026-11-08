@@ -235,30 +235,30 @@ object ThemeManager {
             backgroundType = ThemeArtType.CYBERPUNK_GRID
         ),
 
-        // 8. Titanium Slate Minimal
+        // 8. Titanium Rainbow Prism
         AppThemeConfig(
             id = 7,
-            name = "টাইটানিয়াম স্লেট (Titanium Minimal)",
-            subtitle = "আল্ট্রা-ক্লিন ডার্ক চারকোল ও বরফ-নীল অ্যাকসেন্ট",
+            name = "টাইটানিয়াম প্রিজম (Titanium Prism)",
+            subtitle = "বহুবর্ণ স্পেকট্রাম, সায়ান ও নিয়ন ভায়োলেট আলো",
             isDark = true,
-            primary = Color(0xFF94A3B8),      // Cool Slate
-            secondary = Color(0xFFE2E8F0),    // Light Silver
-            accent = Color(0xFF38BDF8),       // Ice Blue
+            primary = Color(0xFF38BDF8),      // Electric Cyan
+            secondary = Color(0xFFA855F7),    // Neon Violet
+            accent = Color(0xFFFBBF24),       // Prism Amber
             backgroundBrush = Brush.verticalGradient(
-                listOf(Color(0xFF0A0E17), Color(0xFF141B2D), Color(0xFF060910))
+                listOf(Color(0xFF070B18), Color(0xFF111936), Color(0xFF04060E))
             ),
-            cardBackground = Color(0xFF1A233A).copy(alpha = 0.88f),
+            cardBackground = Color(0xFF141F42).copy(alpha = 0.88f),
             cardGradientBrush = Brush.linearGradient(
-                colors = listOf(Color(0xFF222E4C).copy(alpha = 0.92f), Color(0xFF121929).copy(alpha = 0.85f)),
+                colors = listOf(Color(0xFF1C2C5E).copy(alpha = 0.92f), Color(0xFF0F1733).copy(alpha = 0.85f)),
                 start = Offset(0f, 0f), end = Offset(600f, 600f)
             ),
             cardBorderBrush = Brush.linearGradient(
-                colors = listOf(Color(0xFF94A3B8).copy(alpha = 0.8f), Color(0xFF38BDF8).copy(alpha = 0.35f), Color(0xFF0A0E17).copy(alpha = 0.1f))
+                colors = listOf(Color(0xFF38BDF8).copy(alpha = 0.85f), Color(0xFFA855F7).copy(alpha = 0.6f), Color(0xFFFBBF24).copy(alpha = 0.4f))
             ),
             textPrimary = Color(0xFFF8FAFC),
-            textSecondary = Color(0xFF94A3B8),
+            textSecondary = Color(0xFFBAE6FD),
             liveGlowColor = Color(0xFF38BDF8),
-            previewColors = listOf(Color(0xFF0A0E17), Color(0xFF94A3B8), Color(0xFFE2E8F0)),
+            previewColors = listOf(Color(0xFF070B18), Color(0xFF38BDF8), Color(0xFFA855F7)),
             backgroundType = ThemeArtType.TITANIUM_MATRIX
         ),
 

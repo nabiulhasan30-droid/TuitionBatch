@@ -68,15 +68,15 @@ object NotificationHelper {
 
         val notification = NotificationCompat.Builder(context, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_notification)
-            .setContentTitle("⏰ পড়ার সময় আসন্ন! ১৫ মিনিট বাকি: $batchName")
-            .setContentText("বিষয়: $subject | সময়: $timeFormatted | স্থান: $location")
+            .setContentTitle("🔔 সামনে ব্যাচ আসছে: $batchName")
+            .setContentText("১৫ মিনিট বাকি • সময়: $timeFormatted • স্থান: $location")
             .setStyle(
                 NotificationCompat.BigTextStyle().bigText(
-                    "১৫ মিনিট পরেই $batchName ব্যাচের পড়া শুরু হবে।\n" +
-                            "📖 বিষয়: $subject\n" +
+                    "⚠️ সামনে ব্যাচ আসছে!\n" +
+                            "১৫ মিনিট পরেই $batchName ব্যাচের পড়া শুরু হবে।\n\n" +
                             "🕒 সময়: $timeFormatted\n" +
-                            "📍 স্থান: $location\n\n" +
-                            "পড়ার প্রস্তুতি নিন এবং শিক্ষার্থীদের রুটিন চেক করুন।"
+                            "📍 স্থান: $location\n" +
+                            "📖 বিষয়: $subject"
                 )
             )
             .setPriority(NotificationCompat.PRIORITY_HIGH)

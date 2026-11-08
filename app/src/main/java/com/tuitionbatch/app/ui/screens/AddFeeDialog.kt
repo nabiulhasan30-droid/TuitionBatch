@@ -138,7 +138,7 @@ fun AddFeeDialog(
                 OutlinedTextField(
                     value = amountStr,
                     onValueChange = { amountStr = it },
-                    label = { Text("পরিশোধিত টাকার পরিমাণ (টাকা)") },
+                    label = { Text("পরিশোধিত ফি (₹)") },
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     singleLine = true,
                     modifier = Modifier.fillMaxWidth(),

@@ -147,7 +147,7 @@ fun BatchDetailScreen(
                                 fontWeight = FontWeight.SemiBold
                             )
                             Text(
-                                text = "স্থান: ${batch.location} • ফি: ৳${batch.monthlyFee.toInt()}/মাস",
+                                text = "স্থান: ${batch.location} • ফি: ₹${batch.monthlyFee.toInt()}/মাস",
                                 style = MaterialTheme.typography.bodyMedium,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant
                             )

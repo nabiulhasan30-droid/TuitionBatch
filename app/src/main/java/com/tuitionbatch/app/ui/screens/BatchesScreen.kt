@@ -337,7 +337,7 @@ fun BatchListItemCard(
                 )
 
                 Text(
-                    text = "ফি: ৳${batch.monthlyFee.toInt()}",
+                    text = "ফি: ₹${batch.monthlyFee.toInt()}",
                     style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold),
                     color = themeConfig.textColor
                 )

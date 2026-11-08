@@ -230,7 +230,7 @@ fun AddEditBatchDialog(
                     OutlinedTextField(
                         value = monthlyFeeStr,
                         onValueChange = { monthlyFeeStr = it },
-                        label = { Text("মাসিক ফি (টাকা)") },
+                        label = { Text("মাসিক ফি (₹)") },
                         singleLine = true,
                         modifier = Modifier.weight(1f),
                         shape = RoundedCornerShape(12.dp)

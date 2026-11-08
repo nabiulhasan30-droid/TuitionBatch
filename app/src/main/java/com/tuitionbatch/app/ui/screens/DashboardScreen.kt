@@ -180,8 +180,8 @@ fun DashboardScreen(
                     )
                     StatCard(
                         title = "চলতি মাসের ফি",
-                        value = "৳${collectedFee.toInt()}",
-                        subtitle = "আদায়কৃত (বকেয়া: ৳${(expectedFee - collectedFee).coerceAtLeast(0.0).toInt()})",
+                        value = "₹${collectedFee.toInt()}",
+                        subtitle = "আদায়কৃত (বকেয়া: ₹${(expectedFee - collectedFee).coerceAtLeast(0.0).toInt()})",
                         icon = Icons.Default.AccountBalanceWallet,
                         iconColor = RoyalNavy,
                         modifier = Modifier

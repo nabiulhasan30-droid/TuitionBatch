@@ -102,7 +102,7 @@ fun FeesScreen(
                 ) {
                     StatCard(
                         title = "চলতি মাসে আদায়",
-                        value = "৳${collectedFee.toInt()}",
+                        value = "₹${collectedFee.toInt()}",
                         subtitle = "মোট সংগৃহীত",
                         icon = Icons.Default.CheckCircle,
                         iconColor = EmeraldGreen,
@@ -111,8 +111,8 @@ fun FeesScreen(
                     )
                     StatCard(
                         title = "বকেয়া ফি",
-                        value = "৳${dueFee.toInt()}",
-                        subtitle = "প্রত্যাশিত: ৳${expectedFee.toInt()}",
+                        value = "₹${dueFee.toInt()}",
+                        subtitle = "প্রত্যাশিত: ₹${expectedFee.toInt()}",
                         icon = Icons.Default.HourglassEmpty,
                         iconColor = Color(0xFFD97706),
                         themeConfig = themeConfig,
@@ -200,7 +200,7 @@ fun FeesScreen(
 
                                     Column(horizontalAlignment = Alignment.End) {
                                         Text(
-                                            text = "৳${record.amountPaid.toInt()}",
+                                            text = "₹${record.amountPaid.toInt()}",
                                             style = MaterialTheme.typography.titleLarge.copy(fontSize = 18.sp),
                                             fontWeight = FontWeight.ExtraBold,
                                             color = EmeraldGreen
