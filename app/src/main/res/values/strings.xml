@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Tuition Batch</string>
+    <string name="notification_channel_name">Tuition Routine Reminders</string>
+    <string name="notification_channel_description">Notifies 15 minutes before every scheduled tuition batch class</string>
+</resources>

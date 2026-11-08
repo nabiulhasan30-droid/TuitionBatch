@@ -1,0 +1,300 @@
+package com.tuitionbatch.app.ui.screens
+
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.tuitionbatch.app.data.local.entity.BatchEntity
+import com.tuitionbatch.app.notification.AlarmScheduler
+import com.tuitionbatch.app.ui.components.DayChip
+import com.tuitionbatch.app.ui.components.EmptyPlaceholder
+import com.tuitionbatch.app.ui.viewmodel.MainViewModel
+import java.util.Calendar
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun BatchesScreen(
+    viewModel: MainViewModel,
+    onOpenBatchDetail: (Long) -> Unit
+) {
+    val batches by viewModel.allBatches.collectAsState()
+    val allStudents by viewModel.allStudents.collectAsState()
+
+    var searchQuery by remember { mutableStateOf("") }
+    var showAddBatchDialog by remember { mutableStateOf(false) }
+    var batchToEdit by remember { mutableStateOf<BatchEntity?>(null) }
+    var batchToDelete by remember { mutableStateOf<BatchEntity?>(null) }
+
+    val filteredBatches = remember(batches, searchQuery) {
+        if (searchQuery.isBlank()) batches
+        else batches.filter {
+            it.name.contains(searchQuery, ignoreCase = true) ||
+                    it.subject.contains(searchQuery, ignoreCase = true) ||
+                    it.grade.contains(searchQuery, ignoreCase = true)
+        }
+    }
+
+    Scaffold(
+        floatingActionButton = {
+            ExtendedFloatingActionButton(
+                onClick = { showAddBatchDialog = true },
+                icon = { Icon(Icons.Default.Add, contentDescription = null) },
+                text = { Text("নতুন ব্যাচ") },
+                shape = RoundedCornerShape(16.dp),
+                containerColor = MaterialTheme.colorScheme.primary,
+                contentColor = MaterialTheme.colorScheme.onPrimary
+            )
+        }
+    ) { paddingValues ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(MaterialTheme.colorScheme.background)
+                .padding(paddingValues)
+                .padding(horizontal = 16.dp)
+        ) {
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Text(
+                text = "সকল টিউশন ব্যাচ (${batches.size}টি)",
+                style = MaterialTheme.typography.headlineMedium,
+                fontWeight = FontWeight.Bold
+            )
+            Text(
+                text = "আপনার সকল প্রাইভেট ব্যাচ ও রুটিন শিডিউল",
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+
+            Spacer(modifier = Modifier.height(14.dp))
+
+            // Search Bar
+            OutlinedTextField(
+                value = searchQuery,
+                onValueChange = { searchQuery = it },
+                placeholder = { Text("ব্যাচের নাম বা বিষয় দিয়ে খুঁজুন...") },
+                leadingIcon = { Icon(Icons.Default.Search, contentDescription = null) },
+                trailingIcon = {
+                    if (searchQuery.isNotEmpty()) {
+                        IconButton(onClick = { searchQuery = "" }) {
+                            Icon(Icons.Default.Clear, contentDescription = "Clear")
+                        }
+                    }
+                },
+                modifier = Modifier.fillMaxWidth(),
+                singleLine = true,
+                shape = RoundedCornerShape(14.dp)
+            )
+
+            Spacer(modifier = Modifier.height(14.dp))
+
+            if (filteredBatches.isEmpty()) {
+                EmptyPlaceholder(
+                    message = if (searchQuery.isBlank()) "এখনও কোনো ব্যাচ তৈরি করা হয়নি। নিচে '+ নতুন ব্যাচ' বাটনে চাপ দিন!"
+                    else "কোনো ব্যাচ খুঁজে পাওয়া যায়নি।",
+                    icon = Icons.Default.Groups
+                )
+            } else {
+                LazyColumn(
+                    verticalArrangement = Arrangement.spacedBy(12.dp),
+                    contentPadding = PaddingValues(bottom = 90.dp)
+                ) {
+                    items(filteredBatches) { batch ->
+                        val studentCount = allStudents.count { it.batchId == batch.id && it.isActive }
+                        BatchListItemCard(
+                            batch = batch,
+                            studentCount = studentCount,
+                            onClick = { onOpenBatchDetail(batch.id) },
+                            onEdit = { batchToEdit = batch },
+                            onDelete = { batchToDelete = batch },
+                            onToggleActive = {
+                                viewModel.updateBatch(batch.copy(isActive = !batch.isActive))
+                            }
+                        )
+                    }
+                }
+            }
+        }
+    }
+
+    if (showAddBatchDialog) {
+        AddEditBatchDialog(
+            onDismiss = { showAddBatchDialog = false },
+            onSave = { newBatch ->
+                viewModel.insertBatch(newBatch)
+                showAddBatchDialog = false
+            }
+        )
+    }
+
+    if (batchToEdit != null) {
+        AddEditBatchDialog(
+            initialBatch = batchToEdit,
+            onDismiss = { batchToEdit = null },
+            onSave = { updated ->
+                viewModel.updateBatch(updated)
+                batchToEdit = null
+            }
+        )
+    }
+
+    if (batchToDelete != null) {
+        AlertDialog(
+            onDismissRequest = { batchToDelete = null },
+            title = { Text("ব্যাচ মুছে ফেলা") },
+            text = { Text("আপনি কি নিশ্চিতভাবে '${batchToDelete?.name}' ব্যাচটি মুছে ফেলতে চান? এতে এই ব্যাচের সকল শিক্ষার্থী ও হাজিরা মুছে যাবে।") },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        batchToDelete?.let { viewModel.deleteBatch(it) }
+                        batchToDelete = null
+                    }
+                ) {
+                    Text("মুছে ফেলুন", color = MaterialTheme.colorScheme.error)
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { batchToDelete = null }) {
+                    Text("বাতিল")
+                }
+            }
+        )
+    }
+}
+
+@Composable
+fun BatchListItemCard(
+    batch: BatchEntity,
+    studentCount: Int,
+    onClick: () -> Unit,
+    onEdit: () -> Unit,
+    onDelete: () -> Unit,
+    onToggleActive: () -> Unit
+) {
+    val batchColor = try {
+        Color(android.graphics.Color.parseColor(batch.colorHex))
+    } catch (e: Exception) {
+        MaterialTheme.colorScheme.primary
+    }
+
+    val timeStr = AlarmScheduler.formatTime(batch.startTimeHour, batch.startTimeMinute)
+    val allWeekDays = listOf(
+        Calendar.SATURDAY, Calendar.SUNDAY, Calendar.MONDAY,
+        Calendar.TUESDAY, Calendar.WEDNESDAY, Calendar.THURSDAY, Calendar.FRIDAY
+    )
+
+    Card(
+        shape = RoundedCornerShape(18.dp),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable { onClick() }
+    ) {
+        Column(modifier = Modifier.padding(16.dp)) {
+            // Top row: Color tag, Title, Subject, Menu/Toggle
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Box(
+                    modifier = Modifier
+                        .size(14.dp)
+                        .clip(CircleShape)
+                        .background(batchColor)
+                )
+                Spacer(modifier = Modifier.width(8.dp))
+                Column(modifier = Modifier.weight(1f)) {
+                    Text(
+                        text = batch.name,
+                        style = MaterialTheme.typography.titleMedium,
+                        fontWeight = FontWeight.Bold
+                    )
+                    Text(
+                        text = "${batch.subject} • ${batch.grade}",
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+
+                // Edit & Delete icons
+                IconButton(onClick = onEdit, modifier = Modifier.size(32.dp)) {
+                    Icon(Icons.Default.Edit, contentDescription = "Edit", modifier = Modifier.size(18.dp))
+                }
+                IconButton(onClick = onDelete, modifier = Modifier.size(32.dp)) {
+                    Icon(
+                        Icons.Default.DeleteOutline,
+                        contentDescription = "Delete",
+                        tint = MaterialTheme.colorScheme.error,
+                        modifier = Modifier.size(18.dp)
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.height(10.dp))
+
+            // Days chips
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(4.dp)
+            ) {
+                allWeekDays.forEach { dayNum ->
+                    DayChip(
+                        dayNumber = dayNum,
+                        isSelected = batch.daysOfWeek.contains(dayNum)
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.height(12.dp))
+
+            // Time, Fee, Students Info Bar
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Icon(
+                        Icons.Default.AccessTime,
+                        contentDescription = null,
+                        modifier = Modifier.size(16.dp),
+                        tint = MaterialTheme.colorScheme.primary
+                    )
+                    Spacer(modifier = Modifier.width(4.dp))
+                    Text(
+                        text = "$timeStr (🔔 -১৫মি)",
+                        style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.SemiBold),
+                        color = MaterialTheme.colorScheme.primary
+                    )
+                }
+
+                Text(
+                    text = "শিক্ষার্থী: ${studentCount}জন",
+                    style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Medium),
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+
+                Text(
+                    text = "ফি: ৳${batch.monthlyFee.toInt()}",
+                    style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold),
+                    color = MaterialTheme.colorScheme.onSurface
+                )
+            }
+        }
+    }
+}

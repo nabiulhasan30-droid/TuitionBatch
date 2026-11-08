@@ -1,0 +1,236 @@
+package com.tuitionbatch.app.ui.screens
+
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
+import com.tuitionbatch.app.data.local.entity.BatchEntity
+import com.tuitionbatch.app.data.local.entity.StudentEntity
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun AddEditStudentDialog(
+    initialStudent: StudentEntity? = null,
+    batches: List<BatchEntity>,
+    preselectedBatchId: Long? = null,
+    onDismiss: () -> Unit,
+    onSave: (StudentEntity) -> Unit
+) {
+    var name by remember { mutableStateOf(initialStudent?.name ?: "") }
+    var roll by remember { mutableStateOf(initialStudent?.rollNumber ?: "") }
+    var phone by remember { mutableStateOf(initialStudent?.studentPhone ?: "") }
+    var guardianName by remember { mutableStateOf(initialStudent?.guardianName ?: "") }
+    var guardianPhone by remember { mutableStateOf(initialStudent?.guardianPhone ?: "") }
+    var institution by remember { mutableStateOf(initialStudent?.institution ?: "") }
+    var feeOverrideStr by remember { mutableStateOf(initialStudent?.feeOverride?.let { if (it > 0) it.toInt().toString() else "" } ?: "") }
+
+    var selectedBatchId by remember {
+        mutableLongStateOf(
+            initialStudent?.batchId ?: preselectedBatchId ?: (batches.firstOrNull()?.id ?: 0L)
+        )
+    }
+
+    var batchDropdownExpanded by remember { mutableStateOf(false) }
+
+    Dialog(onDismissRequest = onDismiss) {
+        Surface(
+            shape = RoundedCornerShape(24.dp),
+            color = MaterialTheme.colorScheme.surface,
+            tonalElevation = 6.dp,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 16.dp)
+        ) {
+            Column(
+                modifier = Modifier
+                    .padding(20.dp)
+                    .verticalScroll(rememberScrollState())
+            ) {
+                // Header
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = if (initialStudent == null) "নতুন শিক্ষার্থী যুক্ত করুন" else "শিক্ষার্থীর তথ্য পরিবর্তন",
+                        style = MaterialTheme.typography.titleLarge,
+                        fontWeight = FontWeight.Bold
+                    )
+                    IconButton(onClick = onDismiss) {
+                        Icon(Icons.Default.Close, contentDescription = "Close")
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(14.dp))
+
+                // Select Batch
+                ExposedDropdownMenuBox(
+                    expanded = batchDropdownExpanded,
+                    onExpandedChange = { batchDropdownExpanded = !batchDropdownExpanded }
+                ) {
+                    val currentBatchName = batches.find { it.id == selectedBatchId }?.name ?: "ব্যাচ নির্বাচন করুন"
+                    OutlinedTextField(
+                        value = currentBatchName,
+                        onValueChange = {},
+                        readOnly = true,
+                        label = { Text("ব্যাচ নির্বাচন করুন") },
+                        trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = batchDropdownExpanded) },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .menuAnchor(),
+                        shape = RoundedCornerShape(12.dp)
+                    )
+                    ExposedDropdownMenu(
+                        expanded = batchDropdownExpanded,
+                        onDismissRequest = { batchDropdownExpanded = false }
+                    ) {
+                        batches.forEach { batch ->
+                            DropdownMenuItem(
+                                text = { Text("${batch.name} (${batch.grade})") },
+                                onClick = {
+                                    selectedBatchId = batch.id
+                                    batchDropdownExpanded = false
+                                }
+                            )
+                        }
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(10.dp))
+
+                // Student Name
+                OutlinedTextField(
+                    value = name,
+                    onValueChange = { name = it },
+                    label = { Text("শিক্ষার্থীর নাম") },
+                    singleLine = true,
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = RoundedCornerShape(12.dp)
+                )
+
+                Spacer(modifier = Modifier.height(10.dp))
+
+                Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    OutlinedTextField(
+                        value = roll,
+                        onValueChange = { roll = it },
+                        label = { Text("রোল / আইডি") },
+                        singleLine = true,
+                        modifier = Modifier.weight(1f),
+                        shape = RoundedCornerShape(12.dp)
+                    )
+                    OutlinedTextField(
+                        value = phone,
+                        onValueChange = { phone = it },
+                        label = { Text("শিক্ষার্থীর ফোন") },
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone),
+                        singleLine = true,
+                        modifier = Modifier.weight(1.5f),
+                        shape = RoundedCornerShape(12.dp)
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(10.dp))
+
+                // Guardian Details
+                Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    OutlinedTextField(
+                        value = guardianName,
+                        onValueChange = { guardianName = it },
+                        label = { Text("অভিভাবকের নাম") },
+                        singleLine = true,
+                        modifier = Modifier.weight(1f),
+                        shape = RoundedCornerShape(12.dp)
+                    )
+                    OutlinedTextField(
+                        value = guardianPhone,
+                        onValueChange = { guardianPhone = it },
+                        label = { Text("অভিভাবকের ফোন") },
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone),
+                        singleLine = true,
+                        modifier = Modifier.weight(1f),
+                        shape = RoundedCornerShape(12.dp)
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(10.dp))
+
+                OutlinedTextField(
+                    value = institution,
+                    onValueChange = { institution = it },
+                    label = { Text("স্কুল / কলেজ / প্রতিষ্ঠান") },
+                    singleLine = true,
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = RoundedCornerShape(12.dp)
+                )
+
+                Spacer(modifier = Modifier.height(10.dp))
+
+                OutlinedTextField(
+                    value = feeOverrideStr,
+                    onValueChange = { feeOverrideStr = it },
+                    label = { Text("বিশেষ মাসিক ফি (খালি রাখলে ব্যাচ ফি প্রযোজ্য)") },
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                    singleLine = true,
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = RoundedCornerShape(12.dp)
+                )
+
+                Spacer(modifier = Modifier.height(20.dp))
+
+                // Save Button
+                Button(
+                    onClick = {
+                        if (name.isNotBlank() && selectedBatchId > 0) {
+                            val feeOverride = feeOverrideStr.toDoubleOrNull()
+                            val student = (initialStudent ?: StudentEntity(
+                                batchId = selectedBatchId,
+                                name = name,
+                                rollNumber = roll,
+                                studentPhone = phone,
+                                guardianName = guardianName,
+                                guardianPhone = guardianPhone,
+                                institution = institution,
+                                feeOverride = feeOverride
+                            )).copy(
+                                batchId = selectedBatchId,
+                                name = name,
+                                rollNumber = roll,
+                                studentPhone = phone,
+                                guardianName = guardianName,
+                                guardianPhone = guardianPhone,
+                                institution = institution,
+                                feeOverride = feeOverride
+                            )
+                            onSave(student)
+                        }
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(50.dp),
+                    shape = RoundedCornerShape(14.dp),
+                    enabled = name.isNotBlank() && selectedBatchId > 0
+                ) {
+                    Text(
+                        text = if (initialStudent == null) "শিক্ষার্থী যোগ করুন" else "আপডেট সংরক্ষণ করুন",
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                }
+            }
+        }
+    }
+}
