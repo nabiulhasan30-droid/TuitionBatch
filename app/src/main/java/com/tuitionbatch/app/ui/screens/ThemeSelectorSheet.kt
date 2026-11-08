@@ -17,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -32,30 +33,39 @@ fun ThemeSelectorDialog(
 ) {
     Dialog(onDismissRequest = onDismiss) {
         Surface(
-            shape = RoundedCornerShape(24.dp),
+            shape = RoundedCornerShape(26.dp),
             color = MaterialTheme.colorScheme.surface,
-            tonalElevation = 8.dp,
+            tonalElevation = 10.dp,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(vertical = 20.dp)
+                .padding(vertical = 16.dp)
         ) {
             Column(
                 modifier = Modifier
-                    .padding(20.dp)
+                    .padding(18.dp)
                     .fillMaxWidth()
             ) {
+                // Top Title & Close
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
-                        Icon(
-                            Icons.Default.Palette,
-                            contentDescription = null,
-                            tint = MaterialTheme.colorScheme.primary,
-                            modifier = Modifier.size(24.dp)
-                        )
+                        Box(
+                            modifier = Modifier
+                                .size(36.dp)
+                                .clip(CircleShape)
+                                .background(MaterialTheme.colorScheme.primaryContainer),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Icon(
+                                Icons.Default.Palette,
+                                contentDescription = null,
+                                tint = MaterialTheme.colorScheme.primary,
+                                modifier = Modifier.size(20.dp)
+                            )
+                        }
                         Spacer(modifier = Modifier.width(10.dp))
                         Text(
                             text = "১০টি প্রিমিয়াম থিম নির্বাচন",
@@ -69,26 +79,24 @@ fun ThemeSelectorDialog(
                 }
 
                 Text(
-                    text = "যেকোনো থিম সিলেক্ট করুন, সাথে সাথে পুরো অ্যাপের চেহারা পাল্টে যাবে।",
-                    style = MaterialTheme.typography.bodyMedium,
+                    text = "যেকোনো থিমে ট্যাপ করলেই পুরো অ্যাপের ব্যাকগ্রাউন্ড, কার্ড ও নিয়ন গ্লো সাথে সাথে বদলে যাবে।",
+                    style = MaterialTheme.typography.bodyMedium.copy(fontSize = 12.sp),
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
 
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(14.dp))
 
                 LazyColumn(
-                    modifier = Modifier.heightIn(max = 450.dp),
-                    verticalArrangement = Arrangement.spacedBy(10.dp)
+                    modifier = Modifier.heightIn(max = 500.dp),
+                    verticalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
                     items(ThemeManager.themes) { themeConfig ->
                         val isSelected = themeConfig.id == currentThemeId
 
-                        ThemeItemRow(
+                        LuxuryThemeItemCard(
                             themeConfig = themeConfig,
                             isSelected = isSelected,
-                            onSelect = {
-                                onThemeSelected(themeConfig.id)
-                            }
+                            onSelect = { onThemeSelected(themeConfig.id) }
                         )
                     }
                 }
@@ -98,80 +106,147 @@ fun ThemeSelectorDialog(
 }
 
 @Composable
-fun ThemeItemRow(
+fun LuxuryThemeItemCard(
     themeConfig: AppThemeConfig,
     isSelected: Boolean,
     onSelect: () -> Unit
 ) {
-    Card(
-        shape = RoundedCornerShape(16.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = if (isSelected) MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.5f)
-            else MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)
-        ),
+    Box(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable { onSelect() }
-            .then(
-                if (isSelected) Modifier.border(2.dp, MaterialTheme.colorScheme.primary, RoundedCornerShape(16.dp))
-                else Modifier
+            .clip(RoundedCornerShape(18.dp))
+            .background(themeConfig.backgroundBrush)
+            .border(
+                width = if (isSelected) 2.5.dp else 1.dp,
+                color = if (isSelected) themeConfig.primary else themeConfig.cardBorder,
+                shape = RoundedCornerShape(18.dp)
             )
+            .clickable { onSelect() }
+            .padding(10.dp)
     ) {
-        Row(
-            modifier = Modifier
-                .padding(12.dp)
-                .fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                // Color swatches preview
-                Row(
-                    modifier = Modifier
-                        .clip(RoundedCornerShape(8.dp))
-                        .padding(2.dp),
-                    horizontalArrangement = Arrangement.spacedBy(4.dp)
-                ) {
-                    themeConfig.previewColors.forEach { color ->
-                        Box(
-                            modifier = Modifier
-                                .size(22.dp)
-                                .clip(CircleShape)
-                                .background(color)
+        Column {
+            // Theme Title & Selection Checkmark
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    // Swatches
+                    Row(horizontalArrangement = Arrangement.spacedBy(3.dp)) {
+                        themeConfig.previewColors.forEach { color ->
+                            Box(
+                                modifier = Modifier
+                                    .size(14.dp)
+                                    .clip(CircleShape)
+                                    .background(color)
+                                    .border(0.5.dp, Color.White.copy(alpha = 0.3f), CircleShape)
+                            )
+                        }
+                    }
+
+                    Spacer(modifier = Modifier.width(8.dp))
+
+                    Text(
+                        text = themeConfig.name,
+                        style = MaterialTheme.typography.titleMedium.copy(
+                            fontSize = 14.sp,
+                            fontWeight = FontWeight.Bold
+                        ),
+                        color = themeConfig.textPrimary
+                    )
+                }
+
+                if (isSelected) {
+                    Box(
+                        modifier = Modifier
+                            .size(24.dp)
+                            .clip(CircleShape)
+                            .background(themeConfig.primary),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Icon(
+                            Icons.Default.Check,
+                            contentDescription = "Selected",
+                            tint = if (themeConfig.isDark) Color(0xFF0F172A) else Color.White,
+                            modifier = Modifier.size(14.dp)
                         )
                     }
                 }
-
-                Spacer(modifier = Modifier.width(12.dp))
-
-                Column {
-                    Text(
-                        text = themeConfig.name,
-                        style = MaterialTheme.typography.titleMedium.copy(fontSize = 14.sp),
-                        fontWeight = if (isSelected) FontWeight.Bold else FontWeight.SemiBold
-                    )
-                    Text(
-                        text = if (themeConfig.isDark) "ডার্ক থিম • নিয়ন অ্যাকসেন্ট" else "লাইট থিম • ফ্রস্ট গ্লাস",
-                        style = MaterialTheme.typography.labelSmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                }
             }
 
-            if (isSelected) {
-                Box(
-                    modifier = Modifier
-                        .size(28.dp)
-                        .clip(CircleShape)
-                        .background(MaterialTheme.colorScheme.primary),
-                    contentAlignment = Alignment.Center
+            Spacer(modifier = Modifier.height(2.dp))
+
+            Text(
+                text = themeConfig.subtitle,
+                style = MaterialTheme.typography.labelSmall.copy(fontSize = 11.sp),
+                color = themeConfig.textSecondary
+            )
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            // Mini Live Card Mockup inside the Theme Item
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clip(RoundedCornerShape(12.dp))
+                    .background(themeConfig.cardGradientBrush)
+                    .border(1.dp, themeConfig.cardBorderBrush, RoundedCornerShape(12.dp))
+                    .padding(horizontal = 10.dp, vertical = 6.dp)
+            ) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Icon(
-                        Icons.Default.Check,
-                        contentDescription = "Selected",
-                        tint = MaterialTheme.colorScheme.onPrimary,
-                        modifier = Modifier.size(16.dp)
-                    )
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        // Mini Time Pill
+                        Box(
+                            modifier = Modifier
+                                .clip(RoundedCornerShape(8.dp))
+                                .background(themeConfig.primary.copy(alpha = 0.22f))
+                                .padding(horizontal = 6.dp, vertical = 3.dp)
+                        ) {
+                            Text(
+                                text = "12:40 PM",
+                                fontSize = 11.sp,
+                                fontWeight = FontWeight.ExtraBold,
+                                color = themeConfig.primary
+                            )
+                        }
+
+                        Spacer(modifier = Modifier.width(8.dp))
+
+                        Column {
+                            Text(
+                                text = "Pagda Batch",
+                                fontSize = 12.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = themeConfig.textPrimary
+                            )
+                            Text(
+                                text = "📍 Pagda • 🔔 অ্যালার্ম সক্রিয়",
+                                fontSize = 9.sp,
+                                color = themeConfig.textSecondary
+                            )
+                        }
+                    }
+
+                    // Mini Live Tag
+                    Box(
+                        modifier = Modifier
+                            .clip(RoundedCornerShape(6.dp))
+                            .background(themeConfig.liveGlowColor.copy(alpha = 0.3f))
+                            .border(0.8.dp, themeConfig.liveGlowColor, RoundedCornerShape(6.dp))
+                            .padding(horizontal = 5.dp, vertical = 2.dp)
+                    ) {
+                        Text(
+                            text = "🔴 LIVE",
+                            fontSize = 8.5.sp,
+                            fontWeight = FontWeight.ExtraBold,
+                            color = themeConfig.textPrimary
+                        )
+                    }
                 }
             }
         }

@@ -28,8 +28,11 @@ import com.tuitionbatch.app.data.local.entity.StudentEntity
 import com.tuitionbatch.app.notification.AlarmScheduler
 import com.tuitionbatch.app.ui.components.DayChip
 import com.tuitionbatch.app.ui.components.EmptyPlaceholder
+import com.tuitionbatch.app.ui.components.ThemeBackground
+import com.tuitionbatch.app.ui.theme.AppThemeConfig
 import com.tuitionbatch.app.ui.theme.EmeraldGreen
 import com.tuitionbatch.app.ui.theme.RoyalNavy
+import com.tuitionbatch.app.ui.theme.ThemeManager
 import com.tuitionbatch.app.ui.viewmodel.MainViewModel
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -40,6 +43,7 @@ import java.util.Locale
 fun BatchDetailScreen(
     batchId: Long,
     viewModel: MainViewModel,
+    themeConfig: AppThemeConfig = ThemeManager.getThemeConfig(0),
     onBack: () -> Unit
 ) {
     val context = LocalContext.current

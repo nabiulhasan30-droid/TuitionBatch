@@ -55,28 +55,29 @@ fun AttendanceScreen(
         attendanceRecords.associateBy { it.studentId }
     }
 
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text("দৈনিক ডিজিটাল হাজিরা", fontWeight = FontWeight.Bold) },
-                navigationIcon = {
-                    IconButton(onClick = onBack) {
-                        Icon(Icons.Default.ArrowBack, contentDescription = "Back")
-                    }
-                },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.surface
+    com.tuitionbatch.app.ui.components.ThemeBackground(themeConfig = themeConfig) {
+        Scaffold(
+            containerColor = androidx.compose.ui.graphics.Color.Transparent,
+            topBar = {
+                TopAppBar(
+                    title = { Text("দৈনিক ডিজিটাল হাজিরা", fontWeight = FontWeight.Bold, color = themeConfig.textColor) },
+                    navigationIcon = {
+                        IconButton(onClick = onBack) {
+                            Icon(Icons.Default.ArrowBack, contentDescription = "Back", tint = themeConfig.textColor)
+                        }
+                    },
+                    colors = TopAppBarDefaults.topAppBarColors(
+                        containerColor = androidx.compose.ui.graphics.Color.Transparent
+                    )
                 )
-            )
-        }
-    ) { paddingValues ->
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(MaterialTheme.colorScheme.background)
-                .padding(paddingValues)
-                .padding(16.dp)
-        ) {
+            }
+        ) { paddingValues ->
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(paddingValues)
+                    .padding(16.dp)
+            ) {
             // Select Batch Dropdown
             ExposedDropdownMenuBox(
                 expanded = batchDropdownExpanded,
@@ -163,4 +164,5 @@ fun AttendanceScreen(
             }
         }
     }
+}
 }

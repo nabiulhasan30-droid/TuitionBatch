@@ -65,6 +65,7 @@ fun MainScreen(
                 BatchDetailScreen(
                     batchId = viewingBatchDetailId!!,
                     viewModel = viewModel,
+                    themeConfig = currentThemeConfig,
                     onBack = { viewingBatchDetailId = null }
                 )
             } else {
@@ -81,6 +82,7 @@ fun MainScreen(
                     DrawerDestination.BATCHES -> {
                         BatchesScreen(
                             viewModel = viewModel,
+                            themeConfig = currentThemeConfig,
                             onBack = { currentDestination = DrawerDestination.ROUTINE },
                             onOpenBatchDetail = { batchId -> viewingBatchDetailId = batchId }
                         )
@@ -88,6 +90,7 @@ fun MainScreen(
                     DrawerDestination.STUDENTS -> {
                         StudentsScreen(
                             viewModel = viewModel,
+                            themeConfig = currentThemeConfig,
                             onBack = { currentDestination = DrawerDestination.ROUTINE },
                             onOpenBatchDetail = { batchId -> viewingBatchDetailId = batchId }
                         )
@@ -95,6 +98,7 @@ fun MainScreen(
                     DrawerDestination.FEES -> {
                         FeesScreen(
                             viewModel = viewModel,
+                            themeConfig = currentThemeConfig,
                             onBack = { currentDestination = DrawerDestination.ROUTINE }
                         )
                     }
