@@ -1,129 +1,36 @@
-# 🎓 Tuition Batch - Android Native Application
+# 🎓 Tuition Batch - Ultra-Modern Native Android Application
 
-একটি সম্পূর্ণ নেটিভ অ্যান্ডয়েড অ্যাপ্লিকেশন (Kotlin + Jetpack Compose + Material 3 + Room Database), যা প্রাইভেট টিউটর, শিক্ষক এবং কোচিং সেন্টারের জন্য তৈরি করা হয়েছে। 
-
-এই অ্যাপের অন্যতম মূল আকর্ষণ হলো **প্রতিটি পড়ার ঠিক ১৫ মিনিট পূর্বে স্বয়ংক্রিয় নোটিফিকেশন ও অ্যালার্ম সিস্টেম**।
+একটি অসাধারণ এবং অত্যাধুনিক **Kotlin Native (Jetpack Compose + Material 3 + Room Database)** অ্যান্ড্রয়েড অ্যাপ্লিকেশন, যা প্রাইভেট টিউটর, শিক্ষক এবং কোচিং সেন্টারের জন্য তৈরি।
 
 ---
 
-## 🌟 প্রধান প্রধান সুবিধাসমূহ (Key Features)
+## 🌟 নতুন ও আকর্ষণীয় প্রধান সুবিধাসমূহ (Key Features)
 
-### 🔔 ১. স্মার্ট ১৫-মিনিট নোটিফিকেশন অ্যালার্ম (15-Minute Prior Reminder)
-- রুটিন অনুযায়ী প্রতিটি ব্যাচ শুরু হওয়ার ঠিক **১৫ মিনিট আগে** উচ্চ-অগ্রাধিকারের (High Priority) হেডস-আপ নোটিফিকেশন ও ভাইব্রেশন অ্যালার্ট।
-- ডিভাইস রিবুট হলেও `BootReceiver` এর মাধ্যমে সমস্ত অ্যালার্ম পুনরায় সক্রিয় হয়ে যায়।
-- নোটিফিকেশনে পড়ার বিষয়, সময়, স্থান ও এক ক্লিকে অ্যাপ খোলার বাটন থাকে।
+### 📱 ১. ফুল-স্ক্রিন সিঙ্গেল-ভিউ রুটিন (No-Scroll Routine View)
+- কোনো অপ্রয়োজনীয় স্ক্রলিং ছাড়াই নির্বাচিত দিনের সমস্ত ব্যাচ **এক স্ক্রিনের মধ্যেই সুন্দরভাবে ফিট** হয়ে যায়।
+- প্রতিটি কার্ডের উচ্চতা ও লেআউট এমনভাবে অপ্টিমাইজ করা যাতে ৪ থেকে ৬টি ব্যাচ এক নজরে চোখের সামনে ভেসে ওঠে।
 
-### 👥 ২. টিউশন ব্যাচ ম্যানেজমেন্ট (Batch Management)
-- ব্যাচের নাম, বিষয় (Physics, Chemistry, Math, English ইত্যাদি), শ্রেণি/গ্রেড।
-- সাপ্তাহিক পড়ার দিনসমূহ (শনি, রবি, সোম, মঙ্গল, বুধ, বৃহস্পতি, শুক্র)।
-- ক্লাস শুরুর সময় ও সময়কাল।
-- ব্যাচভিত্তিক কালার ট্যাগ ও মাসিক ফি নির্ধারণ।
+### 🎨 ২. ১০টি নজরকাড়া প্রিমিয়াম থিম (10 Atmospheric Themes)
+- প্রতিটি থিমের জন্য তৈরি করা হয়েছে দৃষ্টিনন্দন অ্যাটমোসফিয়ারিক ব্যাকগ্রাউন্ড, ফ্রস্টেড গ্লাস কার্ড ও নিয়ন অ্যাকসেন্ট:
+  1. **সাইবার মিডনাইট (Cyber Midnight)** - ডিপ ব্লু ও ইলেকট্রিক সায়ান
+  2. **রয়্যাল অরোরা (Royal Aurora)** - নর্দার্ন লাইটস এমারেল্ড ও গোল্ড
+  3. **কসমিক নেবুলা (Cosmic Nebula)** - গ্যালাক্সি ভায়োলেট ও নিয়ন ম্যাজেন্টা
+  4. **সানসেট হরাইজন (Sunset Horizon)** - গোধূলি কোরাল ও অ্যাম্বার
+  5. **স্যাফায়ার ওশান (Sapphire Ocean)** - গভীর সমুদ্রের গাঢ় নীল
+  6. **অবসিডিয়ান গোল্ড (Obsidian Gold)** - লাক্সারি ব্ল্যাক ও ব্রাশড গোল্ড
+  7. **সাইবারপাংক নিয়ন (Cyberpunk Neon)** - হাই-কনট্রাস্ট ইলেকট্রিক পিংক
+  8. **টাইটানিয়াম স্লেট (Titanium Minimal)** - মিনিমালিস্টিক ডার্ক চারকোল
+  9. **এমারেল্ড ভেলভেট (Emerald Velvet)** - গভীর সবুজ ও মিন্ট অ্যাকসেন্ট
+  10. **ক্লিন ফ্রস্ট গ্লাস (Frost Glass Light)** - ক্রিস্প রয়্যাল ব্লু লাইট মোড
 
-### 👨‍🎓 ৩. শিক্ষার্থী প্রোফাইল ও অভিভাবক যোগাযোগ (Student & Guardian Directory)
-- শিক্ষার্থীর নাম, রোল নম্বর, প্রতিষ্ঠান, ব্যক্তিগত ফোন নম্বর।
-- অভিভাবকের নাম ও ফোন নম্বর।
-- ১-ক্লিকে শিক্ষার্থী বা অভিভাবককে সরাসরি **ফোন কল** করার সুবিধা।
+### ☰ ৩. অল-ইন-ওয়ান থ্রি-লাইন মেন্যু (Three-Line Hamburger Drawer)
+- স্ক্রিনের অযথা ভিড় দূর করতে যাবতীয় অতিরিক্ত ফিচার (শিক্ষার্থী তালিকা, বেতন ও ফি হিসাব, দৈনিক হাজিরা, নতুন ব্যাচ, থিম সিলেক্টর ইত্যাদি) ঢুকিয়ে দেওয়া হয়েছে স্টাইলিশ সাইড ড্রয়ারে।
 
-### 📋 ৪. দৈনিক হাজিরা খাতা (Attendance Register)
-- তারিখ অনুযায়ী প্রতিটি ব্যাচের শিক্ষার্থীর উপস্থিতি রেকর্ড:
-  - 🟢 উপস্থিত (Present)
-  - 🔴 অনুপস্থিত (Absent)
-  - 🟡 দেরি (Late)
-- 'সবাইকে উপস্থিত করুন' (Mark all present) কুইক বাটন।
+### ⏰ ৪. প্রতিটি পড়ার ১৫ মিনিট পূর্বে স্মার্ট অ্যালার্ম
+- নির্ধারিত ক্লাসের ঠিক **১৫ মিনিট পূর্বে** উচ্চ-অগ্রাধিকারের সাউন্ড ও ভাইব্রেশনসহ হেডস-আপ নোটিফিকেশন।
+- ডিভাইস রিস্টার্ট হলেও অ্যালার্মগুলো স্বয়ংক্রিয়ভাবে পুনরায় সক্রিয় থাকে।
 
-### 💰 ৫. বেতন ও ফি হিসাব (Tuition Fees & Accounts)
-- চলতি মাসের প্রত্যাশিত ফি বনাম আদায়কৃত ফি ও বকেয়ার রিয়েল-টাইম সামারি।
-- শিক্ষার্থীভিত্তিক পেমেন্ট এন্ট্রি (Cash, bKash, Nagad, Bank)।
-- রসিদ নোট ও ট্রানজাকশন আইডি সংরক্ষণ।
-
-### 📅 ৬. সাপ্তাহিক রুটিন টাইমটেবিল (Weekly Routine)
-- বারের ভিত্তিতে (শনিবার থেকে শুক্রবার) সম্পূর্ণ পড়ার শিডিউল।
-- আজকের ক্লাসের দ্রুত তালিকা ও কাউন্টডাউন।
-
-### 📖 ৭. সিলেবাস, পড়া ও বাড়ির কাজ (Class Notes & Homework)
-- ক্লাসে যা পড়ানো হলো তা লিখে রাখা।
-- বাড়ির কাজ (HW) এবং আসন্ন ক্লাস টেস্টের তারিখ সংরক্ষণ।
-
----
-
-## 🏗 প্রযুক্তি ও আর্কিটেকচার (Tech Stack)
-
-* **Language:** Kotlin 2.0+
-* **UI Toolkit:** Jetpack Compose + Material 3 (Dynamic / Dark & Light Themes)
-* **Architecture:** MVVM (Model - View - ViewModel) + Clean Repository Pattern
-* **Local Database:** Room Database (SQLite) + TypeConverters + StateFlow
-* **Asynchronous Operations:** Kotlin Coroutines + Flow
-* **Alarms & Background:** Android `AlarmManager` (Exact Alarms) + `BroadcastReceiver` + `NotificationCompat`
-
----
-
-## 📁 ফাইল স্ট্রাকচার (Directory Structure)
-
-```
-TuitionBatch/
-├── app/
-│   ├── src/main/
-│   │   ├── AndroidManifest.xml
-│   │   ├── java/com/tuitionbatch/app/
-│   │   │   ├── TuitionBatchApp.kt
-│   │   │   ├── MainActivity.kt
-│   │   │   ├── data/
-│   │   │   │   ├── local/
-│   │   │   │   │   ├── AppDatabase.kt
-│   │   │   │   │   ├── Converters.kt
-│   │   │   │   │   ├── dao/
-│   │   │   │   │   │   ├── BatchDao.kt
-│   │   │   │   │   │   ├── StudentDao.kt
-│   │   │   │   │   │   ├── AttendanceDao.kt
-│   │   │   │   │   │   ├── FeeDao.kt
-│   │   │   │   │   │   └── NoteDao.kt
-│   │   │   │   │   └── entity/
-│   │   │   │   │       ├── BatchEntity.kt
-│   │   │   │   │       ├── StudentEntity.kt
-│   │   │   │   │       ├── AttendanceEntity.kt
-│   │   │   │   │       ├── FeeRecordEntity.kt
-│   │   │   │   │       └── NoteEntity.kt
-│   │   │   │   └── repository/
-│   │   │   │       └── TuitionRepository.kt
-│   │   │   ├── notification/
-│   │   │   │   ├── NotificationHelper.kt
-│   │   │   │   └── AlarmScheduler.kt
-│   │   │   ├── receiver/
-│   │   │   │   ├── TuitionReminderReceiver.kt
-│   │   │   │   └── BootReceiver.kt
-│   │   │   └── ui/
-│   │   │       ├── theme/
-│   │   │       │   ├── Color.kt
-│   │   │       │   ├── Theme.kt
-│   │   │       │   └── Type.kt
-│   │   │       ├── components/
-│   │   │       │   └── CommonCards.kt
-│   │   │       ├── screens/
-│   │   │       │   ├── MainScreen.kt
-│   │   │       │   ├── DashboardScreen.kt
-│   │   │       │   ├── BatchesScreen.kt
-│   │   │       │   ├── BatchDetailScreen.kt
-│   │   │       │   ├── AddEditBatchDialog.kt
-│   │   │       │   ├── StudentsScreen.kt
-│   │   │       │   ├── AddEditStudentDialog.kt
-│   │   │       │   ├── FeesScreen.kt
-│   │   │       │   ├── AddFeeDialog.kt
-│   │   │       │   └── RoutineScreen.kt
-│   │   │       └── viewmodel/
-│   │   │           ├── MainViewModel.kt
-│   │   │           └── ViewModelFactory.kt
-│   │   └── res/
-│   └── build.gradle.kts
-├── build.gradle.kts
-├── settings.gradle.kts
-└── gradle/
-    └── libs.versions.toml
-```
-
----
-
-## 🚀 কীভাবে রান করবেন (How to Run)
-
-1. অ্যান্ড্রয়েড স্টুডিওতে (Android Studio) এই ফোল্ডারটি ওপেন করুন: `projects/TuitionBatch`
-2. প্রোজেক্ট সিঙ্ক (Gradle Sync) স্বয়ংক্রিয়ভাবে হবে।
-3. আপনার অ্যান্ড্রয়েড ফোন বা এমুলেটরে রান বাটনে ক্লিক করে ইনস্টল করুন।
+### 🟢 ৫. লাইভ ক্লাস ও কাউন্টডাউন পালস
+- বর্তমানে কোনো ক্লাস চলমান থাকলে তাতে পালসিং নিয়ন গ্লো (🔴 চলমান) জ্বলে ওঠে।
+- পরবর্তী আসন্ন ক্লাসের জন্য (⏳ আসন্ন) কাউন্টডাউন হাইলাইট দেখা যায়।
+- ১-ক্লিকেই সরাসরি শিক্ষার্থী বা অভিভাবককে ফোন কল করার ডায়ালার বাটন।

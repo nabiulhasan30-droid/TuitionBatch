@@ -24,9 +24,11 @@ import com.tuitionbatch.app.ui.viewmodel.MainViewModel
 import java.text.SimpleDateFormat
 import java.util.Locale
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FeesScreen(
-    viewModel: MainViewModel
+    viewModel: MainViewModel,
+    onBack: () -> Unit = {}
 ) {
     val feeRecords by viewModel.allFeeRecords.collectAsState()
     val students by viewModel.allStudents.collectAsState()
@@ -41,6 +43,17 @@ fun FeesScreen(
     var showAddFeeDialog by remember { mutableStateOf(false) }
 
     Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text("মাসিক বেতন ও ফি হিসাব", fontWeight = FontWeight.Bold) },
+                navigationIcon = {
+                    IconButton(onClick = onBack) {
+                        Icon(Icons.Default.ArrowBack, contentDescription = "Back")
+                    }
+                },
+                colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.surface)
+            )
+        },
         floatingActionButton = {
             ExtendedFloatingActionButton(
                 onClick = { showAddFeeDialog = true },

@@ -29,6 +29,7 @@ import com.tuitionbatch.app.ui.viewmodel.MainViewModel
 @Composable
 fun StudentsScreen(
     viewModel: MainViewModel,
+    onBack: () -> Unit = {},
     onOpenBatchDetail: (Long) -> Unit
 ) {
     val context = LocalContext.current
@@ -53,6 +54,17 @@ fun StudentsScreen(
     }
 
     Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text("শিক্ষার্থী তালিকা ও ডিরেক্ট কল", fontWeight = FontWeight.Bold) },
+                navigationIcon = {
+                    IconButton(onClick = onBack) {
+                        Icon(Icons.Default.ArrowBack, contentDescription = "Back")
+                    }
+                },
+                colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.surface)
+            )
+        },
         floatingActionButton = {
             ExtendedFloatingActionButton(
                 onClick = { showAddStudentDialog = true },

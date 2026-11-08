@@ -29,6 +29,7 @@ import java.util.Calendar
 @Composable
 fun BatchesScreen(
     viewModel: MainViewModel,
+    onBack: () -> Unit = {},
     onOpenBatchDetail: (Long) -> Unit
 ) {
     val batches by viewModel.allBatches.collectAsState()
@@ -49,6 +50,17 @@ fun BatchesScreen(
     }
 
     Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text("সকল ব্যাচ ও শিডিউল", fontWeight = FontWeight.Bold) },
+                navigationIcon = {
+                    IconButton(onClick = onBack) {
+                        Icon(Icons.Default.ArrowBack, contentDescription = "Back")
+                    }
+                },
+                colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.surface)
+            )
+        },
         floatingActionButton = {
             ExtendedFloatingActionButton(
                 onClick = { showAddBatchDialog = true },

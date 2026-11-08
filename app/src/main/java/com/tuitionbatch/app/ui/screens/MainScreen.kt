@@ -1,99 +1,160 @@
 package com.tuitionbatch.app.ui.screens
 
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.platform.LocalContext
+import com.tuitionbatch.app.ui.components.AppDrawerContent
+import com.tuitionbatch.app.ui.components.DrawerDestination
+import com.tuitionbatch.app.ui.theme.ThemeManager
 import com.tuitionbatch.app.ui.viewmodel.MainViewModel
-
-enum class NavigationItem(val title: String, val icon: ImageVector) {
-    DASHBOARD("হোম", Icons.Default.Dashboard),
-    BATCHES("ব্যাচ", Icons.Default.Groups),
-    ROUTINE("রুটিন", Icons.Default.CalendarMonth),
-    STUDENTS("শিক্ষার্থী", Icons.Default.School),
-    FEES("ফি / বেতন", Icons.Default.AccountBalanceWallet)
-}
+import kotlinx.coroutines.launch
 
 @Composable
 fun MainScreen(
     viewModel: MainViewModel,
     initialBatchId: Long? = null
 ) {
-    var currentItem by remember { mutableStateOf(NavigationItem.DASHBOARD) }
+    val context = LocalContext.current
+    val coroutineScope = rememberCoroutineScope()
+    val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
+
+    var currentThemeId by remember { mutableIntStateOf(ThemeManager.getSavedThemeId(context)) }
+    val currentThemeConfig = remember(currentThemeId) { ThemeManager.getThemeConfig(currentThemeId) }
+
+    var currentDestination by remember { mutableStateOf(DrawerDestination.ROUTINE) }
     var viewingBatchDetailId by remember { mutableStateOf<Long?>(initialBatchId) }
 
-    if (viewingBatchDetailId != null) {
-        BatchDetailScreen(
-            batchId = viewingBatchDetailId!!,
-            viewModel = viewModel,
-            onBack = { viewingBatchDetailId = null }
-        )
-    } else {
-        Scaffold(
-            bottomBar = {
-                NavigationBar(
-                    containerColor = MaterialTheme.colorScheme.surface,
-                    tonalElevation = 8.dp
-                ) {
-                    NavigationItem.values().forEach { item ->
-                        val isSelected = currentItem == item
-                        NavigationBarItem(
-                            selected = isSelected,
-                            onClick = { currentItem = item },
-                            icon = {
-                                Icon(item.icon, contentDescription = item.title)
-                            },
-                            label = { Text(item.title) },
-                            colors = NavigationBarItemDefaults.colors(
-                                selectedIconColor = MaterialTheme.colorScheme.primary,
-                                selectedTextColor = MaterialTheme.colorScheme.primary,
-                                indicatorColor = MaterialTheme.colorScheme.primaryContainer
-                            )
-                        )
+    var showThemeDialog by remember { mutableStateOf(false) }
+    var showAddBatchDialog by remember { mutableStateOf(false) }
+    var showAddStudentDialog by remember { mutableStateOf(false) }
+    var showAlarmInfoDialog by remember { mutableStateOf(false) }
+
+    val activeBatches by viewModel.activeBatches.collectAsState()
+    val totalStudents by viewModel.totalActiveStudents.collectAsState()
+
+    ModalNavigationDrawer(
+        drawerState = drawerState,
+        drawerContent = {
+            AppDrawerContent(
+                themeConfig = currentThemeConfig,
+                activeBatchCount = activeBatches.size,
+                totalStudentCount = totalStudents,
+                currentDestination = currentDestination,
+                onNavigate = { destination ->
+                    coroutineScope.launch { drawerState.close() }
+                    when (destination) {
+                        DrawerDestination.ROUTINE -> currentDestination = DrawerDestination.ROUTINE
+                        DrawerDestination.BATCHES -> currentDestination = DrawerDestination.BATCHES
+                        DrawerDestination.STUDENTS -> currentDestination = DrawerDestination.STUDENTS
+                        DrawerDestination.FEES -> currentDestination = DrawerDestination.FEES
+                        DrawerDestination.ATTENDANCE -> currentDestination = DrawerDestination.ATTENDANCE
+                        DrawerDestination.THEME_PICKER -> showThemeDialog = true
+                        DrawerDestination.ADD_BATCH -> showAddBatchDialog = true
+                        DrawerDestination.ADD_STUDENT -> showAddStudentDialog = true
+                        DrawerDestination.ALARM_INFO -> showAlarmInfoDialog = true
                     }
                 }
-            }
-        ) { paddingValues ->
-            androidx.compose.foundation.layout.Box(modifier = Modifier.padding(paddingValues)) {
-                when (currentItem) {
-                    NavigationItem.DASHBOARD -> {
-                        DashboardScreen(
+            )
+        }
+    ) {
+        Box(modifier = Modifier.fillMaxSize()) {
+            if (viewingBatchDetailId != null) {
+                BatchDetailScreen(
+                    batchId = viewingBatchDetailId!!,
+                    viewModel = viewModel,
+                    onBack = { viewingBatchDetailId = null }
+                )
+            } else {
+                when (currentDestination) {
+                    DrawerDestination.ROUTINE -> {
+                        FullScreenRoutineScreen(
                             viewModel = viewModel,
-                            onNavigateToBatches = { currentItem = NavigationItem.BATCHES },
-                            onNavigateToStudents = { currentItem = NavigationItem.STUDENTS },
-                            onNavigateToFees = { currentItem = NavigationItem.FEES },
+                            themeConfig = currentThemeConfig,
+                            onOpenDrawer = { coroutineScope.launch { drawerState.open() } },
+                            onOpenThemePicker = { showThemeDialog = true },
                             onOpenBatchDetail = { batchId -> viewingBatchDetailId = batchId }
                         )
                     }
-                    NavigationItem.BATCHES -> {
+                    DrawerDestination.BATCHES -> {
                         BatchesScreen(
                             viewModel = viewModel,
+                            onBack = { currentDestination = DrawerDestination.ROUTINE },
                             onOpenBatchDetail = { batchId -> viewingBatchDetailId = batchId }
                         )
                     }
-                    NavigationItem.ROUTINE -> {
-                        RoutineScreen(
-                            viewModel = viewModel,
-                            onOpenBatchDetail = { batchId -> viewingBatchDetailId = batchId }
-                        )
-                    }
-                    NavigationItem.STUDENTS -> {
+                    DrawerDestination.STUDENTS -> {
                         StudentsScreen(
                             viewModel = viewModel,
+                            onBack = { currentDestination = DrawerDestination.ROUTINE },
                             onOpenBatchDetail = { batchId -> viewingBatchDetailId = batchId }
                         )
                     }
-                    NavigationItem.FEES -> {
+                    DrawerDestination.FEES -> {
                         FeesScreen(
-                            viewModel = viewModel
+                            viewModel = viewModel,
+                            onBack = { currentDestination = DrawerDestination.ROUTINE }
+                        )
+                    }
+                    DrawerDestination.ATTENDANCE -> {
+                        AttendanceScreen(
+                            viewModel = viewModel,
+                            themeConfig = currentThemeConfig,
+                            onBack = { currentDestination = DrawerDestination.ROUTINE }
+                        )
+                    }
+                    else -> {
+                        FullScreenRoutineScreen(
+                            viewModel = viewModel,
+                            themeConfig = currentThemeConfig,
+                            onOpenDrawer = { coroutineScope.launch { drawerState.open() } },
+                            onOpenThemePicker = { showThemeDialog = true },
+                            onOpenBatchDetail = { batchId -> viewingBatchDetailId = batchId }
                         )
                     }
                 }
             }
         }
+    }
+
+    if (showThemeDialog) {
+        ThemeSelectorDialog(
+            currentThemeId = currentThemeId,
+            onThemeSelected = { newThemeId ->
+                currentThemeId = newThemeId
+                ThemeManager.saveThemeId(context, newThemeId)
+                showThemeDialog = false
+            },
+            onDismiss = { showThemeDialog = false }
+        )
+    }
+
+    if (showAddBatchDialog) {
+        AddEditBatchDialog(
+            onDismiss = { showAddBatchDialog = false },
+            onSave = { newBatch ->
+                viewModel.insertBatch(newBatch)
+                showAddBatchDialog = false
+            }
+        )
+    }
+
+    if (showAddStudentDialog) {
+        AddEditStudentDialog(
+            batches = activeBatches,
+            onDismiss = { showAddStudentDialog = false },
+            onSave = { newStudent ->
+                viewModel.insertStudent(newStudent)
+                showAddStudentDialog = false
+            }
+        )
+    }
+
+    if (showAlarmInfoDialog) {
+        AlarmInfoDialog(
+            onDismiss = { showAlarmInfoDialog = false }
+        )
     }
 }
