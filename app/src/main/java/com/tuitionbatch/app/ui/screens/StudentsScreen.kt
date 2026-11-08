@@ -2,6 +2,7 @@ package com.tuitionbatch.app.ui.screens
 
 import android.content.Intent
 import android.net.Uri
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
@@ -241,7 +242,7 @@ fun StudentsScreen(
                                                     Icon(Icons.Default.Phone, contentDescription = null, tint = EmeraldGreen, modifier = Modifier.size(14.dp))
                                                 },
                                                 colors = AssistChipDefaults.assistChipColors(containerColor = themeConfig.cardBackground.copy(alpha = 0.6f)),
-                                                border = AssistChipDefaults.assistChipBorder(borderColor = themeConfig.cardBorder)
+                                                border = BorderStroke(1.dp, themeConfig.cardBorder)
                                             )
                                         }
 
@@ -256,7 +257,7 @@ fun StudentsScreen(
                                                     Icon(Icons.Default.ContactPhone, contentDescription = null, tint = themeConfig.primary, modifier = Modifier.size(14.dp))
                                                 },
                                                 colors = AssistChipDefaults.assistChipColors(containerColor = themeConfig.cardBackground.copy(alpha = 0.6f)),
-                                                border = AssistChipDefaults.assistChipBorder(borderColor = themeConfig.cardBorder)
+                                                border = BorderStroke(1.dp, themeConfig.cardBorder)
                                             )
                                         }
                                     }

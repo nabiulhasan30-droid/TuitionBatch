@@ -1,5 +1,6 @@
 package com.tuitionbatch.app.ui.screens
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
@@ -209,7 +210,7 @@ fun FeesScreen(
                                             onClick = {},
                                             label = { Text(record.paymentMethod, fontSize = 10.sp, fontWeight = FontWeight.Bold, color = themeConfig.textColor) },
                                             colors = AssistChipDefaults.assistChipColors(containerColor = themeConfig.cardBackground.copy(alpha = 0.6f)),
-                                            border = AssistChipDefaults.assistChipBorder(borderColor = themeConfig.cardBorder)
+                                            border = BorderStroke(1.dp, themeConfig.cardBorder)
                                         )
                                     }
                                 }
