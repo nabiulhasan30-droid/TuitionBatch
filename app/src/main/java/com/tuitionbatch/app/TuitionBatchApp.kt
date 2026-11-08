@@ -2,9 +2,13 @@ package com.tuitionbatch.app
 
 import android.app.Application
 import com.tuitionbatch.app.data.local.AppDatabase
+import com.tuitionbatch.app.data.local.TuitionDataSeeder
 import com.tuitionbatch.app.data.repository.TuitionRepository
 import com.tuitionbatch.app.notification.AlarmScheduler
 import com.tuitionbatch.app.notification.NotificationHelper
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class TuitionBatchApp : Application() {
 
@@ -22,8 +26,8 @@ class TuitionBatchApp : Application() {
         repository = TuitionRepository(database)
 
         // 3. Ensure all active alarms are registered and data is seeded
-        kotlinx.coroutines.CoroutineScope(kotlinx.coroutines.Dispatchers.IO).launch {
-            com.tuitionbatch.app.data.local.TuitionDataSeeder.seedInitialDataIfEmpty(
+        CoroutineScope(Dispatchers.IO).launch {
+            TuitionDataSeeder.seedInitialDataIfEmpty(
                 database.batchDao(),
                 database.studentDao()
             )
