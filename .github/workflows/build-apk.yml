@@ -32,13 +32,6 @@ jobs:
       - name: Build Debug APK
         run: ./gradlew assembleDebug --stacktrace
 
-      - name: Upload Debug APK Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: TuitionBatch-Debug-APK
-          path: app/build/outputs/apk/debug/app-debug.apk
-          retention-days: 30
-
       - name: Create GitHub Release with APK
         if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
         uses: softprops/action-gh-release@v2
@@ -48,19 +41,38 @@ jobs:
           body: |
             ## 🎓 Tuition Batch Android Native App Release
             
-            স্বাগতম! Tuition Batch এর অ্যান্ড্রয়েড ইনস্টলেশন APK সফলভাবে বিল্ড হয়েছে।
+            স্বাগতম! Tuition Batch এর নতুন ভার্সনের অ্যান্ড্রয়েড ইনস্টলেশন APK প্রকাশিত হয়েছে।
             
             ### 📥 ডাউনলোড লিংক:
-            নিচের Assets সেকশন থেকে সরাসরি **`TuitionBatch-v1.0.apk`** ফাইলটি আপনার ফোনে ডাউনলোড করে ইনস্টল করুন।
+            নিচের Assets সেকশন থেকে সরাসরি **`app-debug.apk`** ফাইলটি আপনার ফোনে ডাউনলোড করে ইনস্টল করুন।
             
             ### 🌟 অন্তর্ভুক্ত সুবিধাসমূহ:
             - ⏰ **১৫ মিনিট পূর্বে স্বয়ংক্রিয় নোটিফিকেশন ও অ্যালার্ম সিস্টেম**
             - 👥 **TutorSync-এর আসল ১৩টি ব্যাচের রুটিন ও শিডিউল প্রিলোডেড**
             - 👨‍🎓 **শিক্ষার্থী তালিকা ও ১-ক্লিকে সরাসরি ফোন কল**
             - 📋 **দৈনিক ডিজিটাল হাজিরা খাতা (Present/Absent/Late)**
-            - 💰 **মাসিক বেতন, ফি আদায় ও বকেয়া হিসাব**
+            - 💰 **মাসিক বেতন, ফি আদায় ও বকেয়া হিসাব (₹)**
             - 📝 **ক্লাস টপিক ও বাড়ির কাজ (Homework) নোট**
           files: |
             app/build/outputs/apk/debug/app-debug.apk
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Auto-Prune Older Releases & Artifacts (Save Storage)
+        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+        run: |
+          echo "Cleaning older releases to prevent GitHub storage from filling up..."
+          gh release list --limit 100 --json tagName --jq '.[1:][].tagName' | while read -r tag; do
+            if [ -n "$tag" ]; then
+              echo "Pruning older release and tag: $tag"
+              gh release delete "$tag" --cleanup-tag -y || true
+            fi
+          done
+          echo "Cleaning workflow artifacts..."
+          gh api repos/$GITHUB_REPOSITORY/actions/artifacts --jq '.artifacts[].id' | while read -r id; do
+            if [ -n "$id" ]; then
+              gh api -X DELETE "repos/$GITHUB_REPOSITORY/actions/artifacts/$id" || true
+            fi
+          done
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
