@@ -117,7 +117,7 @@ fun AppDrawerContent(
                                 .padding(horizontal = 10.dp, vertical = 4.dp)
                         ) {
                             Text(
-                                text = "শিক্ষার্থী: ${totalStudentCount}জন",
+                                text = "🔔 ১৫মি পূর্বে নোটিফিকেশন",
                                 fontSize = 11.sp,
                                 fontWeight = FontWeight.Bold,
                                 color = themeConfig.secondary

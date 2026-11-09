@@ -149,7 +149,7 @@ fun DayChip(
         Calendar.MONDAY -> "সোম"
         Calendar.TUESDAY -> "মঙ্গল"
         Calendar.WEDNESDAY -> "বুধ"
-        Calendar.THURSDAY -> "বৃহঃ"
+        Calendar.THURSDAY -> "বৃহ"
         Calendar.FRIDAY -> "শুক্র"
         else -> ""
     }

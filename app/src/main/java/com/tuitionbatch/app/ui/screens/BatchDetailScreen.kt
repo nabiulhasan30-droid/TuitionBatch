@@ -61,7 +61,7 @@ fun BatchDetailScreen(
     val notes by viewModel.getNotesForBatch(batchId).collectAsState(initial = emptyList())
 
     var selectedTabIndex by remember { mutableIntStateOf(0) }
-    val tabTitles = listOf("শিক্ষার্থী (${students.size})", "দৈনিক হাজিরা", "পড়ার নোট ও কাজ")
+    val tabTitles = listOf("শিক্ষার্থী", "দৈনিক হাজিরা", "পড়ার নোট ও কাজ")
 
     var showAddStudentDialog by remember { mutableStateOf(false) }
     var showAddNoteDialog by remember { mutableStateOf(false) }

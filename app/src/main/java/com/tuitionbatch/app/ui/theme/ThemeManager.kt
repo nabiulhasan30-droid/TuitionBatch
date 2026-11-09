@@ -34,7 +34,18 @@ data class AppThemeConfig(
     val textSecondary: Color,
     val liveGlowColor: Color,
     val previewColors: List<Color>,
-    val backgroundType: ThemeArtType
+    val backgroundType: ThemeArtType,
+    // Custom distinct typography & text colors
+    val headerTitleColor: Color = primary,
+    val englishDateColor: Color = textPrimary,
+    val bengaliDateColor: Color = accent,
+    val arabicDateColor: Color = secondary,
+    val batchTitleColor: Color = textPrimary,
+    val timeCapsuleColor: Color = primary,
+    val locationTextColor: Color = textSecondary,
+    val tabSelectedBg: Color = primary,
+    val tabSelectedTextColor: Color = if (isDark) Color(0xFF0F172A) else Color.White,
+    val tabUnselectedTextColor: Color = textSecondary
 ) {
     val cardBorder: Color get() = primary.copy(alpha = 0.35f)
     val textColor: Color get() = textPrimary
@@ -70,7 +81,17 @@ object ThemeManager {
             textSecondary = Color(0xFF94A3B8),
             liveGlowColor = Color(0xFF00F0FF),
             previewColors = listOf(Color(0xFF040714), Color(0xFF00F0FF), Color(0xFF818CF8)),
-            backgroundType = ThemeArtType.CYBER_STARS
+            backgroundType = ThemeArtType.CYBER_STARS,
+            headerTitleColor = Color(0xFF00F0FF),
+            englishDateColor = Color(0xFFF8FAFC),
+            bengaliDateColor = Color(0xFFFF007A),
+            arabicDateColor = Color(0xFF818CF8),
+            batchTitleColor = Color(0xFFF8FAFC),
+            timeCapsuleColor = Color(0xFF00F0FF),
+            locationTextColor = Color(0xFF38BDF8),
+            tabSelectedBg = Color(0xFF00F0FF),
+            tabSelectedTextColor = Color(0xFF02040A),
+            tabUnselectedTextColor = Color(0xFF94A3B8)
         ),
 
         // 2. Royal Aurora (Northern Lights)
@@ -97,7 +118,17 @@ object ThemeManager {
             textSecondary = Color(0xFF6EE7B7),
             liveGlowColor = Color(0xFF10B981),
             previewColors = listOf(Color(0xFF021614), Color(0xFF10B981), Color(0xFF06B6D4)),
-            backgroundType = ThemeArtType.AURORA_WAVES
+            backgroundType = ThemeArtType.AURORA_WAVES,
+            headerTitleColor = Color(0xFF10B981),
+            englishDateColor = Color(0xFFECFDF5),
+            bengaliDateColor = Color(0xFFFBBF24),
+            arabicDateColor = Color(0xFF06B6D4),
+            batchTitleColor = Color(0xFFECFDF5),
+            timeCapsuleColor = Color(0xFF10B981),
+            locationTextColor = Color(0xFF6EE7B7),
+            tabSelectedBg = Color(0xFF10B981),
+            tabSelectedTextColor = Color(0xFF010E0C),
+            tabUnselectedTextColor = Color(0xFF6EE7B7)
         ),
 
         // 3. Cosmic Nebula (Galaxy Violet)
@@ -124,7 +155,17 @@ object ThemeManager {
             textSecondary = Color(0xFFD8B4FE),
             liveGlowColor = Color(0xFFE879F9),
             previewColors = listOf(Color(0xFF130422), Color(0xFFC084FC), Color(0xFFF472B6)),
-            backgroundType = ThemeArtType.COSMIC_NEBULA
+            backgroundType = ThemeArtType.COSMIC_NEBULA,
+            headerTitleColor = Color(0xFFC084FC),
+            englishDateColor = Color(0xFFFAF5FF),
+            bengaliDateColor = Color(0xFFF472B6),
+            arabicDateColor = Color(0xFF38BDF8),
+            batchTitleColor = Color(0xFFFAF5FF),
+            timeCapsuleColor = Color(0xFFC084FC),
+            locationTextColor = Color(0xFFD8B4FE),
+            tabSelectedBg = Color(0xFFC084FC),
+            tabSelectedTextColor = Color(0xFF130422),
+            tabUnselectedTextColor = Color(0xFFD8B4FE)
         ),
 
         // 4. Sunset Crimson Horizon
@@ -151,7 +192,17 @@ object ThemeManager {
             textSecondary = Color(0xFFFDA4AF),
             liveGlowColor = Color(0xFFFB7185),
             previewColors = listOf(Color(0xFF22050B), Color(0xFFFB923C), Color(0xFFF43F5E)),
-            backgroundType = ThemeArtType.SUNSET_HORIZON
+            backgroundType = ThemeArtType.SUNSET_HORIZON,
+            headerTitleColor = Color(0xFFFB923C),
+            englishDateColor = Color(0xFFFFF1F2),
+            bengaliDateColor = Color(0xFFFDE047),
+            arabicDateColor = Color(0xFFF43F5E),
+            batchTitleColor = Color(0xFFFFF1F2),
+            timeCapsuleColor = Color(0xFFFB923C),
+            locationTextColor = Color(0xFFFDA4AF),
+            tabSelectedBg = Color(0xFFFB923C),
+            tabSelectedTextColor = Color(0xFF22050B),
+            tabUnselectedTextColor = Color(0xFFFDA4AF)
         ),
 
         // 5. Deep Sapphire Abyss
@@ -178,7 +229,17 @@ object ThemeManager {
             textSecondary = Color(0xFF7DD3FC),
             liveGlowColor = Color(0xFF38BDF8),
             previewColors = listOf(Color(0xFF021220), Color(0xFF38BDF8), Color(0xFF60A5FA)),
-            backgroundType = ThemeArtType.OCEAN_ABYSS
+            backgroundType = ThemeArtType.OCEAN_ABYSS,
+            headerTitleColor = Color(0xFF38BDF8),
+            englishDateColor = Color(0xFFF0F9FF),
+            bengaliDateColor = Color(0xFF34D399),
+            arabicDateColor = Color(0xFF818CF8),
+            batchTitleColor = Color(0xFFF0F9FF),
+            timeCapsuleColor = Color(0xFF38BDF8),
+            locationTextColor = Color(0xFF7DD3FC),
+            tabSelectedBg = Color(0xFF38BDF8),
+            tabSelectedTextColor = Color(0xFF021220),
+            tabUnselectedTextColor = Color(0xFF7DD3FC)
         ),
 
         // 6. Imperial Obsidian & Royal Gold
@@ -205,7 +266,17 @@ object ThemeManager {
             textSecondary = Color(0xFFD6D3D1),
             liveGlowColor = Color(0xFFFBBF24),
             previewColors = listOf(Color(0xFF0C0A07), Color(0xFFF59E0B), Color(0xFFFDE68A)),
-            backgroundType = ThemeArtType.OBSIDIAN_GOLD
+            backgroundType = ThemeArtType.OBSIDIAN_GOLD,
+            headerTitleColor = Color(0xFFF59E0B),
+            englishDateColor = Color(0xFFFFFBEB),
+            bengaliDateColor = Color(0xFFFDE68A),
+            arabicDateColor = Color(0xFFF87171),
+            batchTitleColor = Color(0xFFFFFBEB),
+            timeCapsuleColor = Color(0xFFF59E0B),
+            locationTextColor = Color(0xFFD6D3D1),
+            tabSelectedBg = Color(0xFFF59E0B),
+            tabSelectedTextColor = Color(0xFF0C0A07),
+            tabUnselectedTextColor = Color(0xFFD6D3D1)
         ),
 
         // 7. Tokyo Cyberpunk Synthwave
@@ -232,7 +303,17 @@ object ThemeManager {
             textSecondary = Color(0xFFF472B6),
             liveGlowColor = Color(0xFFFF0055),
             previewColors = listOf(Color(0xFF140108), Color(0xFFFF0055), Color(0xFF00F0FF)),
-            backgroundType = ThemeArtType.CYBERPUNK_GRID
+            backgroundType = ThemeArtType.CYBERPUNK_GRID,
+            headerTitleColor = Color(0xFFFF0055),
+            englishDateColor = Color(0xFFFFFFFF),
+            bengaliDateColor = Color(0xFF00F0FF),
+            arabicDateColor = Color(0xFFB026FF),
+            batchTitleColor = Color(0xFFFFFFFF),
+            timeCapsuleColor = Color(0xFFFF0055),
+            locationTextColor = Color(0xFFF472B6),
+            tabSelectedBg = Color(0xFFFF0055),
+            tabSelectedTextColor = Color(0xFFFFFFFF),
+            tabUnselectedTextColor = Color(0xFFF472B6)
         ),
 
         // 8. Titanium Rainbow Prism
@@ -259,7 +340,17 @@ object ThemeManager {
             textSecondary = Color(0xFFBAE6FD),
             liveGlowColor = Color(0xFF38BDF8),
             previewColors = listOf(Color(0xFF070B18), Color(0xFF38BDF8), Color(0xFFA855F7)),
-            backgroundType = ThemeArtType.TITANIUM_MATRIX
+            backgroundType = ThemeArtType.TITANIUM_MATRIX,
+            headerTitleColor = Color(0xFF38BDF8),
+            englishDateColor = Color(0xFFF8FAFC),
+            bengaliDateColor = Color(0xFFFBBF24),
+            arabicDateColor = Color(0xFFA855F7),
+            batchTitleColor = Color(0xFFF8FAFC),
+            timeCapsuleColor = Color(0xFF38BDF8),
+            locationTextColor = Color(0xFFBAE6FD),
+            tabSelectedBg = Color(0xFF38BDF8),
+            tabSelectedTextColor = Color(0xFF070B18),
+            tabUnselectedTextColor = Color(0xFFBAE6FD)
         ),
 
         // 9. Mystic Emerald Forest
@@ -286,7 +377,17 @@ object ThemeManager {
             textSecondary = Color(0xFF86EFAC),
             liveGlowColor = Color(0xFF34D399),
             previewColors = listOf(Color(0xFF04140E), Color(0xFF34D399), Color(0xFFA7F3D0)),
-            backgroundType = ThemeArtType.EMERALD_VELVET
+            backgroundType = ThemeArtType.EMERALD_VELVET,
+            headerTitleColor = Color(0xFF34D399),
+            englishDateColor = Color(0xFFF0FDF4),
+            bengaliDateColor = Color(0xFFF59E0B),
+            arabicDateColor = Color(0xFFA7F3D0),
+            batchTitleColor = Color(0xFFF0FDF4),
+            timeCapsuleColor = Color(0xFF34D399),
+            locationTextColor = Color(0xFF86EFAC),
+            tabSelectedBg = Color(0xFF34D399),
+            tabSelectedTextColor = Color(0xFF04140E),
+            tabUnselectedTextColor = Color(0xFF86EFAC)
         ),
 
         // 10. Crystal Frost Glass (Light Luxury)
@@ -313,7 +414,17 @@ object ThemeManager {
             textSecondary = Color(0xFF475569),
             liveGlowColor = Color(0xFF2563EB),
             previewColors = listOf(Color(0xFFEFF6FF), Color(0xFF1D4ED8), Color(0xFF0284C7)),
-            backgroundType = ThemeArtType.FROST_LIGHT
+            backgroundType = ThemeArtType.FROST_LIGHT,
+            headerTitleColor = Color(0xFF1D4ED8),
+            englishDateColor = Color(0xFF0F172A),
+            bengaliDateColor = Color(0xFFD97706),
+            arabicDateColor = Color(0xFF0284C7),
+            batchTitleColor = Color(0xFF0F172A),
+            timeCapsuleColor = Color(0xFF1D4ED8),
+            locationTextColor = Color(0xFF475569),
+            tabSelectedBg = Color(0xFF1D4ED8),
+            tabSelectedTextColor = Color(0xFFFFFFFF),
+            tabUnselectedTextColor = Color(0xFF475569)
         )
     )
 

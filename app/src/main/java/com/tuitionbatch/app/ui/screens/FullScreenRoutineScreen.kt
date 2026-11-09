@@ -2,8 +2,6 @@ package com.tuitionbatch.app.ui.screens
 
 import android.content.Intent
 import android.net.Uri
-import androidx.compose.animation.core.*
-import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -32,9 +30,8 @@ import com.tuitionbatch.app.ui.components.EmptyPlaceholder
 import com.tuitionbatch.app.ui.components.ThemeBackground
 import com.tuitionbatch.app.ui.theme.AppThemeConfig
 import com.tuitionbatch.app.ui.viewmodel.MainViewModel
-import java.text.SimpleDateFormat
+import com.tuitionbatch.app.util.DateHelper
 import java.util.Calendar
-import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -49,14 +46,15 @@ fun FullScreenRoutineScreen(
     val activeBatches by viewModel.activeBatches.collectAsState()
     val allStudents by viewModel.allStudents.collectAsState()
 
+    // ৪. বার গুলো সুন্দর স্টাইলিশ বাংলায় শর্ট ফর্ম এ (শনি, রবি, সোম, মঙ্গল, বুধ, বৃহ, শুক্র)
     val daysList = listOf(
-        Pair(Calendar.SATURDAY, "শনিবার"),
-        Pair(Calendar.SUNDAY, "রবিবার"),
-        Pair(Calendar.MONDAY, "সোমবার"),
-        Pair(Calendar.TUESDAY, "মঙ্গলবার"),
-        Pair(Calendar.WEDNESDAY, "বুধবার"),
-        Pair(Calendar.THURSDAY, "বৃহস্পতিবার"),
-        Pair(Calendar.FRIDAY, "শুক্রবার")
+        Pair(Calendar.SATURDAY, "শনি"),
+        Pair(Calendar.SUNDAY, "রবি"),
+        Pair(Calendar.MONDAY, "সোম"),
+        Pair(Calendar.TUESDAY, "মঙ্গল"),
+        Pair(Calendar.WEDNESDAY, "বুধ"),
+        Pair(Calendar.THURSDAY, "বৃহ"),
+        Pair(Calendar.FRIDAY, "শুক্র")
     )
 
     val todayCalendarDay = remember { Calendar.getInstance().get(Calendar.DAY_OF_WEEK) }
@@ -71,18 +69,25 @@ fun FullScreenRoutineScreen(
         }
     }
 
+    val todayCal = remember(currentTimeMillis) {
+        Calendar.getInstance().apply { timeInMillis = currentTimeMillis }
+    }
+
+    // ২. সবার উপরে ইংরেজি তারিখের নিচে বাংলা তারিখ মাস ও আরবি তারিখ মাস (পশ্চিমবঙ্গীয় নিয়ম)
+    val englishDateStr = remember(currentTimeMillis) {
+        DateHelper.getEnglishDate(todayCal)
+    }
+    val bengaliDateStr = remember(currentTimeMillis) {
+        DateHelper.getWestBengalBengaliDate(todayCal)
+    }
+    val arabicDateStr = remember(currentTimeMillis) {
+        DateHelper.getArabicHijriDate(todayCal)
+    }
+
     val dayBatches = remember(activeBatches, selectedDay) {
         activeBatches
             .filter { it.daysOfWeek.contains(selectedDay) }
             .sortedWith(compareBy({ it.startTimeHour }, { it.startTimeMinute }))
-    }
-
-    val liveFormattedTime = remember(currentTimeMillis) {
-        SimpleDateFormat("hh:mm:ss a", Locale.ENGLISH).format(currentTimeMillis)
-    }
-
-    val liveFormattedDate = remember(currentTimeMillis) {
-        SimpleDateFormat("EEEE, dd MMMM", Locale.ENGLISH).format(currentTimeMillis)
     }
 
     ThemeBackground(themeConfig = themeConfig) {
@@ -92,7 +97,7 @@ fun FullScreenRoutineScreen(
                 .statusBarsPadding()
                 .navigationBarsPadding()
         ) {
-            // Sleek Ultra-Compact Header
+            // Sleek Ultra-Compact Header with Dates
             Surface(
                 color = Color.Transparent,
                 modifier = Modifier.fillMaxWidth()
@@ -100,7 +105,7 @@ fun FullScreenRoutineScreen(
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 14.dp, vertical = 6.dp),
+                        .padding(horizontal = 12.dp, vertical = 6.dp),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
@@ -108,7 +113,7 @@ fun FullScreenRoutineScreen(
                     IconButton(
                         onClick = onOpenDrawer,
                         modifier = Modifier
-                            .size(40.dp)
+                            .size(38.dp)
                             .clip(RoundedCornerShape(12.dp))
                             .background(themeConfig.cardBackground)
                             .border(1.dp, themeConfig.cardBorder, RoundedCornerShape(12.dp))
@@ -120,37 +125,67 @@ fun FullScreenRoutineScreen(
                         )
                     }
 
-                    // Center live title and digital time
-                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        Row(verticalAlignment = Alignment.CenterVertically) {
-                            Box(
-                                modifier = Modifier
-                                    .size(7.dp)
-                                    .clip(CircleShape)
-                                    .background(themeConfig.primary)
-                            )
-                            Spacer(modifier = Modifier.width(6.dp))
+                    // ২. সবার উপরে ইংরেজি তারিখ, নিচে পশ্চিমবঙ্গীয় বাংলা ও হিজরি আরবি তারিখ
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        modifier = Modifier
+                            .weight(1f)
+                            .padding(horizontal = 6.dp)
+                    ) {
+                        // ইংরেজি তারিখ
+                        Text(
+                            text = englishDateStr,
+                            style = MaterialTheme.typography.titleMedium.copy(
+                                fontSize = 14.5.sp,
+                                fontWeight = FontWeight.ExtraBold,
+                                letterSpacing = 0.2.sp
+                            ),
+                            color = themeConfig.englishDateColor,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
+                        )
+
+                        Spacer(modifier = Modifier.height(2.dp))
+
+                        // বাংলা তারিখ মাস (পশ্চিমবঙ্গ) ও আরবি তারিখ মাস
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.Center
+                        ) {
                             Text(
-                                text = "TUITION BATCH ROUTINE",
+                                text = bengaliDateStr,
                                 style = MaterialTheme.typography.labelSmall.copy(
-                                    letterSpacing = 1.2.sp,
+                                    fontSize = 11.sp,
                                     fontWeight = FontWeight.Bold
                                 ),
-                                color = themeConfig.primary
+                                color = themeConfig.bengaliDateColor
+                            )
+
+                            Text(
+                                text = " • ",
+                                style = MaterialTheme.typography.labelSmall.copy(
+                                    fontSize = 11.sp,
+                                    fontWeight = FontWeight.Bold
+                                ),
+                                color = themeConfig.textSecondary.copy(alpha = 0.5f)
+                            )
+
+                            Text(
+                                text = arabicDateStr,
+                                style = MaterialTheme.typography.labelSmall.copy(
+                                    fontSize = 11.sp,
+                                    fontWeight = FontWeight.Bold
+                                ),
+                                color = themeConfig.arabicDateColor
                             )
                         }
-                        Text(
-                            text = "$liveFormattedTime • $liveFormattedDate",
-                            style = MaterialTheme.typography.bodyMedium.copy(fontSize = 12.sp, fontWeight = FontWeight.SemiBold),
-                            color = themeConfig.textSecondary
-                        )
                     }
 
                     // Theme selector button
                     IconButton(
                         onClick = onOpenThemePicker,
                         modifier = Modifier
-                            .size(40.dp)
+                            .size(38.dp)
                             .clip(RoundedCornerShape(12.dp))
                             .background(themeConfig.cardBackground)
                             .border(1.dp, themeConfig.cardBorder, RoundedCornerShape(12.dp))
@@ -164,49 +199,56 @@ fun FullScreenRoutineScreen(
                 }
             }
 
-            // Compact 7-Day Tab Strip
+            // ৪. বার গুলো সুন্দর স্টাইলিশ শর্ট ফর্ম এ (সোম, বুধ, বৃহ, শুক্র)
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 10.dp, vertical = 4.dp),
+                    .padding(horizontal = 8.dp, vertical = 4.dp),
                 horizontalArrangement = Arrangement.spacedBy(4.dp)
             ) {
-                daysList.forEach { (calDay, label) ->
+                daysList.forEach { (calDay, shortLabel) ->
                     val isSelected = selectedDay == calDay
                     val isToday = todayCalendarDay == calDay
 
                     Box(
                         modifier = Modifier
                             .weight(1f)
-                            .height(38.dp)
-                            .clip(RoundedCornerShape(10.dp))
+                            .height(40.dp)
+                            .clip(RoundedCornerShape(12.dp))
                             .background(
-                                if (isSelected) themeConfig.primary
-                                else themeConfig.cardBackground
+                                if (isSelected) themeConfig.tabSelectedBg
+                                else themeConfig.cardBackground.copy(alpha = 0.65f)
                             )
                             .border(
-                                width = if (isToday && !isSelected) 1.5.dp else 1.dp,
-                                color = if (isToday && !isSelected) themeConfig.primary else themeConfig.cardBorder,
-                                shape = RoundedCornerShape(10.dp)
+                                width = if (isSelected) 1.5.dp else if (isToday) 1.2.dp else 0.8.dp,
+                                color = if (isSelected) themeConfig.primary
+                                else if (isToday) themeConfig.accent
+                                else themeConfig.cardBorder.copy(alpha = 0.5f),
+                                shape = RoundedCornerShape(12.dp)
                             )
                             .clickable { selectedDay = calDay },
                         contentAlignment = Alignment.Center
                     ) {
-                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.Center
+                        ) {
                             Text(
-                                text = label.take(4),
-                                style = MaterialTheme.typography.labelSmall.copy(fontSize = 11.sp),
-                                fontWeight = if (isSelected) FontWeight.ExtraBold else FontWeight.Medium,
-                                color = if (isSelected) {
-                                    if (themeConfig.isDark) Color(0xFF0F172A) else Color.White
-                                } else themeConfig.textPrimary
+                                text = shortLabel,
+                                style = MaterialTheme.typography.labelMedium.copy(
+                                    fontSize = 13.5.sp,
+                                    fontWeight = if (isSelected) FontWeight.ExtraBold else FontWeight.Bold
+                                ),
+                                color = if (isSelected) themeConfig.tabSelectedTextColor
+                                else themeConfig.tabUnselectedTextColor
                             )
                             if (isToday) {
+                                Spacer(modifier = Modifier.height(2.dp))
                                 Box(
                                     modifier = Modifier
-                                        .size(4.dp)
+                                        .size(3.5.dp)
                                         .clip(CircleShape)
-                                        .background(if (isSelected) Color.White else themeConfig.primary)
+                                        .background(if (isSelected) themeConfig.tabSelectedTextColor else themeConfig.accent)
                                 )
                             }
                         }
@@ -225,11 +267,11 @@ fun FullScreenRoutineScreen(
             ) {
                 if (dayBatches.isEmpty()) {
                     EmptyPlaceholder(
-                        message = "${daysList.find { it.first == selectedDay }?.second}-এ কোনো ব্যাচ নেই। মেন্যু থেকে নতুন ব্যাচ যোগ করতে পারেন।",
+                        message = "${daysList.find { it.first == selectedDay }?.second}-বারে কোনো ব্যাচ নেই। মেন্যু থেকে নতুন ব্যাচ যোগ করতে পারেন।",
                         icon = Icons.Default.EventBusy
                     )
                 } else {
-                    // Adaptive Column that distributes height so all 4-6 cards fit directly on screen
+                    // Adaptive Column that distributes cards so they fit directly on screen
                     Column(
                         modifier = Modifier
                             .fillMaxSize()
@@ -237,7 +279,6 @@ fun FullScreenRoutineScreen(
                         verticalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
                         dayBatches.forEach { batch ->
-                            val studentCount = allStudents.count { it.batchId == batch.id && it.isActive }
                             val isToday = selectedDay == todayCalendarDay
                             val batchStatus = remember(batch, currentTimeMillis, isToday) {
                                 if (!isToday) BatchLiveStatus.UPCOMING
@@ -246,7 +287,7 @@ fun FullScreenRoutineScreen(
 
                             FullRoutineCard(
                                 batch = batch,
-                                studentCount = studentCount,
+                                studentCount = 0,
                                 status = batchStatus,
                                 themeConfig = themeConfig,
                                 modifier = Modifier
@@ -363,7 +404,7 @@ fun FullRoutineCard(
                             fontSize = 14.5.sp,
                             fontWeight = FontWeight.ExtraBold
                         ),
-                        color = themeConfig.primary
+                        color = themeConfig.timeCapsuleColor
                     )
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Icon(
@@ -397,9 +438,10 @@ fun FullRoutineCard(
                     text = batch.name,
                     style = MaterialTheme.typography.titleMedium.copy(
                         fontSize = 16.5.sp,
-                        fontWeight = FontWeight.Bold
+                        fontWeight = FontWeight.Bold,
+                        letterSpacing = 0.2.sp
                     ),
-                    color = themeConfig.textPrimary,
+                    color = themeConfig.batchTitleColor,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
@@ -411,7 +453,7 @@ fun FullRoutineCard(
                     Icon(
                         Icons.Default.LocationOn,
                         contentDescription = null,
-                        tint = themeConfig.textSecondary,
+                        tint = themeConfig.locationTextColor,
                         modifier = Modifier.size(13.dp)
                     )
                     Spacer(modifier = Modifier.width(3.dp))
@@ -421,7 +463,7 @@ fun FullRoutineCard(
                             fontSize = 12.sp,
                             fontWeight = FontWeight.Medium
                         ),
-                        color = themeConfig.textSecondary,
+                        color = themeConfig.locationTextColor,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )

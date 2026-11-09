@@ -156,14 +156,14 @@ fun DashboardScreen(
                             .clickable { onNavigateToBatches() }
                     )
                     StatCard(
-                        title = "শিক্ষার্থী",
-                        value = "${totalStudents}জন",
-                        subtitle = "মোট নিবন্ধিত",
-                        icon = Icons.Default.School,
+                        title = "স্মার্ট অ্যালার্ম",
+                        value = "১৫মি পূর্বে",
+                        subtitle = "স্বয়ংক্রিয় নোটিফিকেশন",
+                        icon = Icons.Default.NotificationsActive,
                         iconColor = EmeraldGreen,
                         modifier = Modifier
                             .weight(1f)
-                            .clickable { onNavigateToStudents() }
+                            .clickable { onNavigateToRoutine() }
                     )
                 }
                 Row(

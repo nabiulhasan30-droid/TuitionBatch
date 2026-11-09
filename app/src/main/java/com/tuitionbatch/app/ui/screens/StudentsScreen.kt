@@ -94,7 +94,7 @@ fun StudentsScreen(
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Text(
-                    text = "সকল শিক্ষার্থী (${students.size}জন)",
+                    text = "সকল শিক্ষার্থী",
                     style = MaterialTheme.typography.headlineMedium,
                     fontWeight = FontWeight.Bold,
                     color = themeConfig.textColor

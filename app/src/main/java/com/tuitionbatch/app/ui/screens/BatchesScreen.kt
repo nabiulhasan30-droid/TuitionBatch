@@ -330,11 +330,20 @@ fun BatchListItemCard(
                     )
                 }
 
-                Text(
-                    text = "শিক্ষার্থী: ${studentCount}জন",
-                    style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Medium),
-                    color = themeConfig.subtextColor
-                )
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Icon(
+                        Icons.Default.LocationOn,
+                        contentDescription = null,
+                        modifier = Modifier.size(14.dp),
+                        tint = themeConfig.subtextColor
+                    )
+                    Spacer(modifier = Modifier.width(3.dp))
+                    Text(
+                        text = batch.location.ifBlank { "ব্যাচ রুম" },
+                        style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Medium),
+                        color = themeConfig.subtextColor
+                    )
+                }
 
                 Text(
                     text = "ফি: ₹${batch.monthlyFee.toInt()}",
