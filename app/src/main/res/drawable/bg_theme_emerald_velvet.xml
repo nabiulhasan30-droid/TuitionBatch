@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="400dp"
+    android:height="800dp"
+    android:viewportWidth="400"
+    android:viewportHeight="800">
+
+    <!-- Deep Emerald & Jade Canopy Base -->
+    <path
+        android:pathData="M0,0h400v800h-400z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="linear"
+                android:startX="0"
+                android:startY="0"
+                android:endX="400"
+                android:endY="800">
+                <item android:offset="0.0" android:color="#021C14" />
+                <item android:offset="0.45" android:color="#063527" />
+                <item android:offset="0.8" android:color="#03241A" />
+                <item android:offset="1.0" android:color="#01140E" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Glowing Rainforest Sunbeams Filtered through Leaves -->
+    <path
+        android:pathData="M80,-30 L220,540 L160,540 L40,-30 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="linear"
+                android:startX="60"
+                android:startY="0"
+                android:endX="190"
+                android:endY="540">
+                <item android:offset="0.0" android:color="#4010B981" />
+                <item android:offset="0.6" android:color="#1834D399" />
+                <item android:offset="1.0" android:color="#00000000" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <path
+        android:pathData="M220,-30 L360,600 L300,600 L180,-30 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="linear"
+                android:startX="200"
+                android:startY="0"
+                android:endX="330"
+                android:endY="600">
+                <item android:offset="0.0" android:color="#35FBBF24" />
+                <item android:offset="0.6" android:color="#1510B981" />
+                <item android:offset="1.0" android:color="#00000000" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Botanical Canopy Leaf Silhouettes at Top & Sides -->
+    <path
+        android:fillColor="#01150F"
+        android:pathData="M-20,-20 Q70,90 140,40 Q220,120 310,50 Q380,100 420,-20 Z" />
+
+    <!-- Enchanted Glowing Golden Fireflies -->
+    <path android:fillColor="#FDE68A" android:fillAlpha="0.9" android:pathData="M110,260 A3,3 0 1 0 110,266 A3,3 0 1 0 110,260 Z" />
+    <path android:fillColor="#34D399" android:fillAlpha="0.8" android:pathData="M270,180 A3.5,3.5 0 1 0 270,187 A3.5,3.5 0 1 0 270,180 Z" />
+    <path android:fillColor="#FDE68A" android:fillAlpha="0.9" android:pathData="M180,440 A3,3 0 1 0 180,446 A3,3 0 1 0 180,440 Z" />
+    <path android:fillColor="#6EE7B7" android:fillAlpha="0.8" android:pathData="M320,380 A2.5,2.5 0 1 0 320,385 A2.5,2.5 0 1 0 320,380 Z" />
+    <path android:fillColor="#FBBF24" android:fillAlpha="0.8" android:pathData="M70,580 A3,3 0 1 0 70,586 A3,3 0 1 0 70,580 Z" />
+    <path android:fillColor="#34D399" android:fillAlpha="0.7" android:pathData="M290,640 A3.2,3.2 0 1 0 290,646.4 A3.2,3.2 0 1 0 290,640 Z" />
+
+</vector>

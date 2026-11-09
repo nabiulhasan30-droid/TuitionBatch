@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import com.tuitionbatch.app.R
 
 enum class ThemeArtType {
     CYBER_STARS,
@@ -35,6 +36,7 @@ data class AppThemeConfig(
     val liveGlowColor: Color,
     val previewColors: List<Color>,
     val backgroundType: ThemeArtType,
+    val backgroundDrawableRes: Int = R.drawable.bg_theme_cyber_midnight,
     // Custom distinct typography & text colors
     val headerTitleColor: Color = primary,
     val englishDateColor: Color = textPrimary,
@@ -82,6 +84,7 @@ object ThemeManager {
             liveGlowColor = Color(0xFF00F0FF),
             previewColors = listOf(Color(0xFF040714), Color(0xFF00F0FF), Color(0xFF818CF8)),
             backgroundType = ThemeArtType.CYBER_STARS,
+            backgroundDrawableRes = R.drawable.bg_theme_cyber_midnight,
             headerTitleColor = Color(0xFF00F0FF),
             englishDateColor = Color(0xFFF8FAFC),
             bengaliDateColor = Color(0xFFFF007A),
@@ -119,6 +122,7 @@ object ThemeManager {
             liveGlowColor = Color(0xFF10B981),
             previewColors = listOf(Color(0xFF021614), Color(0xFF10B981), Color(0xFF06B6D4)),
             backgroundType = ThemeArtType.AURORA_WAVES,
+            backgroundDrawableRes = R.drawable.bg_theme_royal_aurora,
             headerTitleColor = Color(0xFF10B981),
             englishDateColor = Color(0xFFECFDF5),
             bengaliDateColor = Color(0xFFFBBF24),
@@ -156,6 +160,7 @@ object ThemeManager {
             liveGlowColor = Color(0xFFE879F9),
             previewColors = listOf(Color(0xFF130422), Color(0xFFC084FC), Color(0xFFF472B6)),
             backgroundType = ThemeArtType.COSMIC_NEBULA,
+            backgroundDrawableRes = R.drawable.bg_theme_cosmic_nebula,
             headerTitleColor = Color(0xFFC084FC),
             englishDateColor = Color(0xFFFAF5FF),
             bengaliDateColor = Color(0xFFF472B6),
@@ -193,6 +198,7 @@ object ThemeManager {
             liveGlowColor = Color(0xFFFB7185),
             previewColors = listOf(Color(0xFF22050B), Color(0xFFFB923C), Color(0xFFF43F5E)),
             backgroundType = ThemeArtType.SUNSET_HORIZON,
+            backgroundDrawableRes = R.drawable.bg_theme_sunset_horizon,
             headerTitleColor = Color(0xFFFB923C),
             englishDateColor = Color(0xFFFFF1F2),
             bengaliDateColor = Color(0xFFFDE047),
@@ -230,6 +236,7 @@ object ThemeManager {
             liveGlowColor = Color(0xFF38BDF8),
             previewColors = listOf(Color(0xFF021220), Color(0xFF38BDF8), Color(0xFF60A5FA)),
             backgroundType = ThemeArtType.OCEAN_ABYSS,
+            backgroundDrawableRes = R.drawable.bg_theme_sapphire_ocean,
             headerTitleColor = Color(0xFF38BDF8),
             englishDateColor = Color(0xFFF0F9FF),
             bengaliDateColor = Color(0xFF34D399),
@@ -267,6 +274,7 @@ object ThemeManager {
             liveGlowColor = Color(0xFFFBBF24),
             previewColors = listOf(Color(0xFF0C0A07), Color(0xFFF59E0B), Color(0xFFFDE68A)),
             backgroundType = ThemeArtType.OBSIDIAN_GOLD,
+            backgroundDrawableRes = R.drawable.bg_theme_obsidian_gold,
             headerTitleColor = Color(0xFFF59E0B),
             englishDateColor = Color(0xFFFFFBEB),
             bengaliDateColor = Color(0xFFFDE68A),
@@ -304,6 +312,7 @@ object ThemeManager {
             liveGlowColor = Color(0xFFFF0055),
             previewColors = listOf(Color(0xFF140108), Color(0xFFFF0055), Color(0xFF00F0FF)),
             backgroundType = ThemeArtType.CYBERPUNK_GRID,
+            backgroundDrawableRes = R.drawable.bg_theme_cyberpunk_neon,
             headerTitleColor = Color(0xFFFF0055),
             englishDateColor = Color(0xFFFFFFFF),
             bengaliDateColor = Color(0xFF00F0FF),
@@ -341,6 +350,7 @@ object ThemeManager {
             liveGlowColor = Color(0xFF38BDF8),
             previewColors = listOf(Color(0xFF070B18), Color(0xFF38BDF8), Color(0xFFA855F7)),
             backgroundType = ThemeArtType.TITANIUM_MATRIX,
+            backgroundDrawableRes = R.drawable.bg_theme_titanium_minimal,
             headerTitleColor = Color(0xFF38BDF8),
             englishDateColor = Color(0xFFF8FAFC),
             bengaliDateColor = Color(0xFFFBBF24),
@@ -378,6 +388,7 @@ object ThemeManager {
             liveGlowColor = Color(0xFF34D399),
             previewColors = listOf(Color(0xFF04140E), Color(0xFF34D399), Color(0xFFA7F3D0)),
             backgroundType = ThemeArtType.EMERALD_VELVET,
+            backgroundDrawableRes = R.drawable.bg_theme_emerald_velvet,
             headerTitleColor = Color(0xFF34D399),
             englishDateColor = Color(0xFFF0FDF4),
             bengaliDateColor = Color(0xFFF59E0B),
@@ -415,6 +426,7 @@ object ThemeManager {
             liveGlowColor = Color(0xFF2563EB),
             previewColors = listOf(Color(0xFFEFF6FF), Color(0xFF1D4ED8), Color(0xFF0284C7)),
             backgroundType = ThemeArtType.FROST_LIGHT,
+            backgroundDrawableRes = R.drawable.bg_theme_frost_light,
             headerTitleColor = Color(0xFF1D4ED8),
             englishDateColor = Color(0xFF0F172A),
             bengaliDateColor = Color(0xFFD97706),

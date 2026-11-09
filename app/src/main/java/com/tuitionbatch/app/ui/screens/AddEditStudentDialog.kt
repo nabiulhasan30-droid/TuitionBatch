@@ -1,5 +1,9 @@
 package com.tuitionbatch.app.ui.screens
 
+import android.content.Intent
+import android.provider.ContactsContract
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -7,10 +11,12 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.ContactPhone
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
@@ -28,6 +34,7 @@ fun AddEditStudentDialog(
     onDismiss: () -> Unit,
     onSave: (StudentEntity) -> Unit
 ) {
+    val context = LocalContext.current
     var name by remember { mutableStateOf(initialStudent?.name ?: "") }
     var roll by remember { mutableStateOf(initialStudent?.rollNumber ?: "") }
     var phone by remember { mutableStateOf(initialStudent?.studentPhone ?: "") }
@@ -43,6 +50,49 @@ fun AddEditStudentDialog(
     }
 
     var batchDropdownExpanded by remember { mutableStateOf(false) }
+
+    var pickingForStudent by remember { mutableStateOf(true) }
+
+    val contactPickerLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        val uri = result.data?.data ?: return@rememberLauncherForActivityResult
+        val projection = arrayOf(
+            ContactsContract.CommonDataKinds.Phone.NUMBER,
+            ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME
+        )
+        try {
+            context.contentResolver.query(uri, projection, null, null, null)?.use { cursor ->
+                if (cursor.moveToFirst()) {
+                    val numberIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)
+                    val nameIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME)
+                    val rawNumber = if (numberIndex != -1) cursor.getString(numberIndex) else ""
+                    val contactName = if (nameIndex != -1) cursor.getString(nameIndex) else ""
+                    val cleanNumber = rawNumber.replace(" ", "").replace("-", "")
+
+                    if (pickingForStudent) {
+                        phone = cleanNumber
+                        if (name.isBlank() && contactName.isNotBlank()) {
+                            name = contactName
+                        }
+                    } else {
+                        guardianPhone = cleanNumber
+                        if (guardianName.isBlank() && contactName.isNotBlank()) {
+                            guardianName = contactName
+                        }
+                    }
+                }
+            }
+        } catch (e: Exception) {
+            // Silently ignore format/permission edge case
+        }
+    }
+
+    val openDirectoryPicker = { forStudent: Boolean ->
+        pickingForStudent = forStudent
+        val intent = Intent(Intent.ACTION_PICK, ContactsContract.CommonDataKinds.Phone.CONTENT_URI)
+        contactPickerLauncher.launch(intent)
+    }
 
     Dialog(onDismissRequest = onDismiss) {
         Surface(
@@ -136,9 +186,19 @@ fun AddEditStudentDialog(
                         value = phone,
                         onValueChange = { phone = it },
                         label = { Text("শিক্ষার্থীর ফোন") },
+                        placeholder = { Text("নম্বর লিখুন বা বাছুন") },
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone),
                         singleLine = true,
-                        modifier = Modifier.weight(1.5f),
+                        trailingIcon = {
+                            IconButton(onClick = { openDirectoryPicker(true) }) {
+                                Icon(
+                                    Icons.Default.ContactPhone,
+                                    contentDescription = "ফোন ডিরেক্টরি থেকে বাছুন",
+                                    tint = MaterialTheme.colorScheme.primary
+                                )
+                            }
+                        },
+                        modifier = Modifier.weight(1.8f),
                         shape = RoundedCornerShape(12.dp)
                     )
                 }
@@ -159,9 +219,19 @@ fun AddEditStudentDialog(
                         value = guardianPhone,
                         onValueChange = { guardianPhone = it },
                         label = { Text("অভিভাবকের ফোন") },
+                        placeholder = { Text("নম্বর লিখুন বা বাছুন") },
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone),
                         singleLine = true,
-                        modifier = Modifier.weight(1f),
+                        trailingIcon = {
+                            IconButton(onClick = { openDirectoryPicker(false) }) {
+                                Icon(
+                                    Icons.Default.ContactPhone,
+                                    contentDescription = "ফোন ডিরেক্টরি থেকে বাছুন",
+                                    tint = MaterialTheme.colorScheme.primary
+                                )
+                            }
+                        },
+                        modifier = Modifier.weight(1.2f),
                         shape = RoundedCornerShape(12.dp)
                     )
                 }

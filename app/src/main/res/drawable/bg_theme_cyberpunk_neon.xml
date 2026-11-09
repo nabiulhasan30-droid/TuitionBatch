@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="400dp"
+    android:height="800dp"
+    android:viewportWidth="400"
+    android:viewportHeight="800">
+
+    <!-- Retro Synthwave Deep Dark Sky -->
+    <path
+        android:pathData="M0,0h400v800h-400z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="linear"
+                android:startX="0"
+                android:startY="0"
+                android:endX="0"
+                android:endY="800">
+                <item android:offset="0.0" android:color="#12021A" />
+                <item android:offset="0.4" android:color="#240632" />
+                <item android:offset="0.65" android:color="#3B0748" />
+                <item android:offset="0.75" android:color="#1A0322" />
+                <item android:offset="1.0" android:color="#0A010D" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Glowing Electric Magenta Neon Sun -->
+    <path
+        android:pathData="M140,460 A60,60 0 1 0 260,460 A60,60 0 1 0 140,460 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="linear"
+                android:startX="200"
+                android:startY="400"
+                android:endX="200"
+                android:endY="520">
+                <item android:offset="0.0" android:color="#FDF4FF" />
+                <item android:offset="0.3" android:color="#F472B6" />
+                <item android:offset="0.7" android:color="#EC4899" />
+                <item android:offset="1.0" android:color="#DB2777" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Sun Blind Slits (80s Synthwave aesthetic) -->
+    <path android:fillColor="#240632" android:pathData="M140,470h120v4h-120z M145,482h110v6h-110z M155,496h90v8h-90z" />
+
+    <!-- Radiant Sun Aura -->
+    <path
+        android:pathData="M0,360h400v200h-400z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="radial"
+                android:centerX="200"
+                android:centerY="460"
+                android:gradientRadius="180">
+                <item android:offset="0.0" android:color="#55EC4899" />
+                <item android:offset="0.5" android:color="#20A855F7" />
+                <item android:offset="1.0" android:color="#00000000" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- High-Contrast Neon Grid Flooring -->
+    <path
+        android:pathData="M0,520 L400,520 M0,550 L400,550 M0,590 L400,590 M0,640 L400,640 M0,700 L400,700 M0,770 L400,770"
+        android:strokeWidth="1.2"
+        android:strokeAlpha="0.35"
+        android:strokeColor="#06B6D4" />
+
+    <path
+        android:pathData="M200,500 L-40,800 M200,500 L60,800 M200,500 L140,800 M200,500 L200,800 M200,500 L260,800 M200,500 L340,800 M200,500 L440,800"
+        android:strokeWidth="1.2"
+        android:strokeAlpha="0.35"
+        android:strokeColor="#EC4899" />
+
+    <!-- Neon Sky Flares -->
+    <path android:fillColor="#06B6D4" android:fillAlpha="0.8" android:pathData="M90,120 A2,2 0 1 0 90,124 A2,2 0 1 0 90,120 Z" />
+    <path android:fillColor="#F472B6" android:fillAlpha="0.9" android:pathData="M310,140 A2.5,2.5 0 1 0 310,145 A2.5,2.5 0 1 0 310,140 Z" />
+    <path android:fillColor="#FFFFFF" android:fillAlpha="0.7" android:pathData="M200,90 A2,2 0 1 0 200,94 A2,2 0 1 0 200,90 Z" />
+
+</vector>

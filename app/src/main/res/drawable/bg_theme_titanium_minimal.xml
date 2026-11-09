@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="400dp"
+    android:height="800dp"
+    android:viewportWidth="400"
+    android:viewportHeight="800">
+
+    <!-- Deep Titanium Charcoal Slate Base -->
+    <path
+        android:pathData="M0,0h400v800h-400z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="linear"
+                android:startX="0"
+                android:startY="0"
+                android:endX="400"
+                android:endY="800">
+                <item android:offset="0.0" android:color="#0F172A" />
+                <item android:offset="0.4" android:color="#1E293B" />
+                <item android:offset="0.75" android:color="#141E33" />
+                <item android:offset="1.0" android:color="#0B1120" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Subtle Slate Precision Geometric Lines -->
+    <path
+        android:pathData="M-50,150 L450,250 M-50,350 L450,450 M-50,550 L450,650"
+        android:strokeWidth="1.0"
+        android:strokeAlpha="0.12"
+        android:strokeColor="#94A3B8" />
+
+    <path
+        android:pathData="M150,-50 L250,850 M300,-50 L400,850 M0,-50 L100,850"
+        android:strokeWidth="0.8"
+        android:strokeAlpha="0.08"
+        android:strokeColor="#FFFFFF" />
+
+    <!-- Minimalist Top Ambient Beam -->
+    <path
+        android:pathData="M0,0h400v300h-400z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="radial"
+                android:centerX="200"
+                android:centerY="40"
+                android:gradientRadius="240">
+                <item android:offset="0.0" android:color="#2038BDF8" />
+                <item android:offset="0.6" android:color="#080284C7" />
+                <item android:offset="1.0" android:color="#00000000" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Sleek Precision Tech Rings -->
+    <path
+        android:pathData="M200,400 A180,180 0 1 0 200,760 A180,180 0 1 0 200,400 Z"
+        android:strokeWidth="0.8"
+        android:strokeAlpha="0.10"
+        android:strokeColor="#38BDF8" />
+
+    <path
+        android:pathData="M200,460 A120,120 0 1 0 200,700 A120,120 0 1 0 200,460 Z"
+        android:strokeWidth="0.6"
+        android:strokeAlpha="0.08"
+        android:strokeColor="#FFFFFF" />
+
+</vector>

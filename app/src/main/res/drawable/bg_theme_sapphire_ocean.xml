@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="400dp"
+    android:height="800dp"
+    android:viewportWidth="400"
+    android:viewportHeight="800">
+
+    <!-- Deep Ocean Water Column Base -->
+    <path
+        android:pathData="M0,0h400v800h-400z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="linear"
+                android:startX="0"
+                android:startY="0"
+                android:endX="0"
+                android:endY="800">
+                <item android:offset="0.0" android:color="#031E3D" />
+                <item android:offset="0.35" android:color="#072B54" />
+                <item android:offset="0.7" android:color="#051D3A" />
+                <item android:offset="1.0" android:color="#020C18" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Sun Rays Piercing Water from Surface -->
+    <path
+        android:pathData="M60,-20 L160,500 L110,500 L30,-20 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="linear"
+                android:startX="45"
+                android:startY="0"
+                android:endX="135"
+                android:endY="500">
+                <item android:offset="0.0" android:color="#4538BDF8" />
+                <item android:offset="0.7" android:color="#150284C7" />
+                <item android:offset="1.0" android:color="#00000000" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <path
+        android:pathData="M180,-20 L310,580 L250,580 L140,-20 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="linear"
+                android:startX="160"
+                android:startY="0"
+                android:endX="280"
+                android:endY="580">
+                <item android:offset="0.0" android:color="#5000F0FF" />
+                <item android:offset="0.65" android:color="#180369A1" />
+                <item android:offset="1.0" android:color="#00000000" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Deep Sea Reef / Abyss Silhouette at Bottom -->
+    <path
+        android:fillColor="#010A14"
+        android:pathData="M-10,720 Q70,660 160,700 T340,680 Q380,670 410,720 L410,800 L-10,800 Z" />
+
+    <!-- Luminescent Aquatic Particles & Bubbles -->
+    <path android:fillColor="#38BDF8" android:fillAlpha="0.6" android:pathData="M90,320 A4,4 0 1 0 90,328 A4,4 0 1 0 90,320 Z" />
+    <path android:fillColor="#00F0FF" android:fillAlpha="0.7" android:pathData="M280,240 A5,5 0 1 0 280,250 A5,5 0 1 0 280,240 Z" />
+    <path android:fillColor="#FFFFFF" android:fillAlpha="0.5" android:pathData="M190,410 A3,3 0 1 0 190,416 A3,3 0 1 0 190,410 Z" />
+    <path android:fillColor="#38BDF8" android:fillAlpha="0.6" android:pathData="M320,440 A3.5,3.5 0 1 0 320,447 A3.5,3.5 0 1 0 320,440 Z" />
+    <path android:fillColor="#BAE6FD" android:fillAlpha="0.7" android:pathData="M60,540 A2.5,2.5 0 1 0 60,545 A2.5,2.5 0 1 0 60,540 Z" />
+
+</vector>

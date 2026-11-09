@@ -234,8 +234,7 @@ fun StudentsScreen(
                                         if (student.studentPhone.isNotBlank()) {
                                             AssistChip(
                                                 onClick = {
-                                                    val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:${student.studentPhone}"))
-                                                    context.startActivity(intent)
+                                                    com.tuitionbatch.app.util.PhoneCallHelper.directCall(context, student.studentPhone)
                                                 },
                                                 label = { Text("ছাত্র: ${student.studentPhone}", fontSize = 11.sp, color = themeConfig.textColor) },
                                                 leadingIcon = {
@@ -249,8 +248,7 @@ fun StudentsScreen(
                                         if (student.guardianPhone.isNotBlank()) {
                                             AssistChip(
                                                 onClick = {
-                                                    val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:${student.guardianPhone}"))
-                                                    context.startActivity(intent)
+                                                    com.tuitionbatch.app.util.PhoneCallHelper.directCall(context, student.guardianPhone)
                                                 },
                                                 label = { Text("অভিভাবক: ${student.guardianPhone}", fontSize = 11.sp, color = themeConfig.textColor) },
                                                 leadingIcon = {

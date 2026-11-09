@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="400dp"
+    android:height="800dp"
+    android:viewportWidth="400"
+    android:viewportHeight="800">
+
+    <!-- Deep Cyber Midnight Sky Base -->
+    <path
+        android:pathData="M0,0h400v800h-400z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="linear"
+                android:startX="0"
+                android:startY="0"
+                android:endX="400"
+                android:endY="800">
+                <item android:offset="0.0" android:color="#030712" />
+                <item android:offset="0.4" android:color="#0B132B" />
+                <item android:offset="0.8" android:color="#050B1C" />
+                <item android:offset="1.0" android:color="#02040A" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Glowing Cyber Starlight Nebula (Cyan & Electric Violet) -->
+    <path
+        android:pathData="M-50,50 C120,-30 280,10 320,180 C360,340 160,320 60,250 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="radial"
+                android:centerX="120"
+                android:centerY="120"
+                android:gradientRadius="260">
+                <item android:offset="0.0" android:color="#4000F0FF" />
+                <item android:offset="0.6" android:color="#186366F1" />
+                <item android:offset="1.0" android:color="#00000000" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Neon Horizon Wireframe Grid -->
+    <path
+        android:pathData="M0,540 L400,540 M0,570 L400,570 M0,610 L400,610 M0,660 L400,660 M0,720 L400,720 M0,790 L400,790"
+        android:strokeWidth="0.8"
+        android:strokeAlpha="0.18"
+        android:strokeColor="#00F0FF" />
+
+    <path
+        android:pathData="M200,520 L0,800 M200,520 L80,800 M200,520 L160,800 M200,520 L240,800 M200,520 L320,800 M200,520 L400,800"
+        android:strokeWidth="0.8"
+        android:strokeAlpha="0.18"
+        android:strokeColor="#00F0FF" />
+
+    <!-- Futuristic Cyber City Skyscraper Silhouettes in Background -->
+    <path
+        android:fillColor="#091428"
+        android:fillAlpha="0.85"
+        android:pathData="M30,520 L30,420 L70,420 L70,520 M90,520 L90,360 L140,360 L140,520 M160,520 L160,400 L210,400 L210,520 M230,520 L230,340 L280,340 L280,520 M300,520 L300,440 L350,440 L350,520 Z" />
+
+    <!-- Neon Glowing Spire Antennas -->
+    <path android:strokeColor="#00F0FF" android:strokeWidth="1.2" android:strokeAlpha="0.8" android:pathData="M115,360 L115,320" />
+    <path android:strokeColor="#FF007A" android:strokeWidth="1.2" android:strokeAlpha="0.8" android:pathData="M255,340 L255,290" />
+
+    <!-- Floating Cyber Stars & Data Sparkles -->
+    <path android:fillColor="#00F0FF" android:fillAlpha="0.8" android:pathData="M60,100 L62,96 L66,97 L62,99 L60,104 L58,99 L54,97 L58,96 Z" />
+    <path android:fillColor="#FF007A" android:fillAlpha="0.8" android:pathData="M320,140 L322,136 L326,137 L322,139 L320,144 L318,139 L314,137 L318,136 Z" />
+    <path android:fillColor="#FFFFFF" android:fillAlpha="0.6" android:pathData="M180,70 A2,2 0 1 0 180,74 A2,2 0 1 0 180,70 Z" />
+    <path android:fillColor="#00F0FF" android:fillAlpha="0.6" android:pathData="M270,220 A2,2 0 1 0 270,224 A2,2 0 1 0 270,220 Z" />
+    <path android:fillColor="#FFFFFF" android:fillAlpha="0.5" android:pathData="M40,240 A1.5,1.5 0 1 0 40,243 A1.5,1.5 0 1 0 40,240 Z" />
+
+</vector>

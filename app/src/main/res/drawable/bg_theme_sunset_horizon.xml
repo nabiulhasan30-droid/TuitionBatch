@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="400dp"
+    android:height="800dp"
+    android:viewportWidth="400"
+    android:viewportHeight="800">
+
+    <!-- Twilight Evening Sky Gradient -->
+    <path
+        android:pathData="M0,0h400v800h-400z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="linear"
+                android:startX="0"
+                android:startY="0"
+                android:endX="0"
+                android:endY="800">
+                <item android:offset="0.0" android:color="#1A0A1E" />
+                <item android:offset="0.35" android:color="#3B122D" />
+                <item android:offset="0.6" android:color="#6B1D2F" />
+                <item android:offset="0.75" android:color="#A83228" />
+                <item android:offset="0.88" android:color="#D9531E" />
+                <item android:offset="1.0" android:color="#1A060A" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Glowing Golden Setting Sun -->
+    <path
+        android:pathData="M150,520 A50,50 0 1 0 250,520 A50,50 0 1 0 150,520 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="radial"
+                android:centerX="200"
+                android:centerY="520"
+                android:gradientRadius="60">
+                <item android:offset="0.0" android:color="#FFFBEB" />
+                <item android:offset="0.4" android:color="#FDE68A" />
+                <item android:offset="0.8" android:color="#F59E0B" />
+                <item android:offset="1.0" android:color="#EF4444" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Warm Atmospheric Sun Halo -->
+    <path
+        android:pathData="M0,420h400v200h-400z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="radial"
+                android:centerX="200"
+                android:centerY="520"
+                android:gradientRadius="200">
+                <item android:offset="0.0" android:color="#50F59E0B" />
+                <item android:offset="0.5" android:color="#25EA580C" />
+                <item android:offset="1.0" android:color="#00000000" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Silhouetted Rolling Hills -->
+    <path
+        android:fillColor="#1C060D"
+        android:pathData="M-20,620 Q90,560 200,600 T420,570 L420,800 L-20,800 Z" />
+
+    <path
+        android:fillColor="#0D0206"
+        android:pathData="M-20,680 Q140,630 280,670 T420,650 L420,800 L-20,800 Z" />
+
+    <!-- Palm Trees Silhouettes on Horizon -->
+    <path
+        android:fillColor="#0D0206"
+        android:pathData="M70,680 Q73,630 75,580 L76,580 Q74,630 72,680 Z M75,580 Q55,565 40,575 M75,580 Q65,555 60,545 M75,580 Q85,555 95,550 M75,580 Q95,565 110,575 M75,580 Q75,550 78,540"
+        android:strokeColor="#0D0206"
+        android:strokeWidth="1.8" />
+
+    <path
+        android:fillColor="#0D0206"
+        android:pathData="M330,670 Q327,620 325,570 L326,570 Q328,620 331,670 Z M325,570 Q305,555 290,565 M325,570 Q315,545 310,535 M325,570 Q335,545 345,540 M325,570 Q345,555 360,565"
+        android:strokeColor="#0D0206"
+        android:strokeWidth="1.8" />
+
+    <!-- Evening Dusk Twilight Stars -->
+    <path android:fillColor="#FDE68A" android:fillAlpha="0.8" android:pathData="M110,120 A1.8,1.8 0 1 0 110,123.6 A1.8,1.8 0 1 0 110,120 Z" />
+    <path android:fillColor="#FFFFFF" android:fillAlpha="0.9" android:pathData="M290,90 A2.2,2.2 0 1 0 290,94.4 A2.2,2.2 0 1 0 290,90 Z" />
+    <path android:fillColor="#FDE68A" android:fillAlpha="0.7" android:pathData="M60,220 A1.5,1.5 0 1 0 60,223 A1.5,1.5 0 1 0 60,220 Z" />
+    <path android:fillColor="#FFFFFF" android:fillAlpha="0.6" android:pathData="M350,260 A1.8,1.8 0 1 0 350,263.6 A1.8,1.8 0 1 0 350,260 Z" />
+
+</vector>

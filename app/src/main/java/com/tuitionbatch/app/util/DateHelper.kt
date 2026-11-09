@@ -17,10 +17,11 @@ data class BengaliDate(
 data class HijriDate(
     val day: Int,
     val monthName: String,
-    val year: Int
+    val year: Int,
+    val shortMonthName: String = monthName
 ) {
     fun format(): String = "${DateHelper.toBengaliDigits(day)} $monthName ${DateHelper.toBengaliDigits(year)} হিজরি"
-    fun formatShort(): String = "${DateHelper.toBengaliDigits(day)} $monthName"
+    fun formatShort(): String = "${DateHelper.toBengaliDigits(day)} $shortMonthName"
 }
 
 object DateHelper {
@@ -74,6 +75,12 @@ object DateHelper {
         "রমজান", "শাওয়াল", "জিলকদ", "জিলহজ্জ"
     )
 
+    val hijriShortMonthNames = arrayOf(
+        "মহররম", "সফর", "রবি-আউয়াল", "রবি-সানি",
+        "জুমা-উলা", "জুমা-সানি", "রজব", "শাবান",
+        "রমজান", "শাওয়াল", "জিলকদ", "জিলহজ"
+    )
+
     /**
      * সবার উপরে প্রদর্শনের জন্য ইংরেজি তারিখ (বাংলায় লিখিত)
      * যেমন: সোমবার, ৯ নভেম্বর ২০২৬
@@ -102,7 +109,7 @@ object DateHelper {
             cal.get(Calendar.MONTH) + 1,
             cal.get(Calendar.DAY_OF_MONTH)
         )
-        return getWestBengalBengaliDate(localDate).format()
+        return getWestBengalBengaliDate(localDate).formatShort()
     }
 
     fun getWestBengalBengaliDate(date: LocalDate): BengaliDate {
@@ -251,7 +258,7 @@ object DateHelper {
             cal.get(Calendar.MONTH) + 1,
             cal.get(Calendar.DAY_OF_MONTH)
         )
-        return getArabicHijriDate(localDate).format()
+        return getArabicHijriDate(localDate).formatShort()
     }
 
     fun getArabicHijriDate(date: LocalDate): HijriDate {
@@ -262,9 +269,10 @@ object DateHelper {
             val hYear = hijrahDate.get(ChronoField.YEAR_OF_ERA)
 
             val monthName = hijriMonthNames.getOrElse(hMonth - 1) { "আরবি" }
-            HijriDate(hDay, monthName, hYear)
+            val shortMonthName = hijriShortMonthNames.getOrElse(hMonth - 1) { monthName }
+            HijriDate(hDay, monthName, hYear, shortMonthName)
         } catch (e: Exception) {
-            HijriDate(1, "আরবি", 1448)
+            HijriDate(1, "আরবি", 1448, "আরবি")
         }
     }
 }

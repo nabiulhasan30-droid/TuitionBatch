@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="400dp"
+    android:height="800dp"
+    android:viewportWidth="400"
+    android:viewportHeight="800">
+
+    <!-- Deep Space Void Base -->
+    <path
+        android:pathData="M0,0h400v800h-400z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="linear"
+                android:startX="0"
+                android:startY="0"
+                android:endX="400"
+                android:endY="800">
+                <item android:offset="0.0" android:color="#0B061A" />
+                <item android:offset="0.4" android:color="#170A2C" />
+                <item android:offset="0.75" android:color="#120524" />
+                <item android:offset="1.0" android:color="#070210" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Swirling Violet & Magenta Galactic Nebula -->
+    <path
+        android:pathData="M-40,160 C80,20 260,60 360,180 C460,300 380,480 260,540 C140,600 40,480 -20,400 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="radial"
+                android:centerX="200"
+                android:centerY="300"
+                android:gradientRadius="300">
+                <item android:offset="0.0" android:color="#55D946EF" />
+                <item android:offset="0.45" android:color="#358B5CF6" />
+                <item android:offset="0.8" android:color="#156366F1" />
+                <item android:offset="1.0" android:color="#00000000" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Radiant Cosmic Core Glow -->
+    <path
+        android:pathData="M140,240 A60,60 0 1 0 260,240 A60,60 0 1 0 140,240 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="radial"
+                android:centerX="200"
+                android:centerY="240"
+                android:gradientRadius="70">
+                <item android:offset="0.0" android:color="#99FFFFFF" />
+                <item android:offset="0.3" android:color="#77F472B6" />
+                <item android:offset="0.7" android:color="#33A855F7" />
+                <item android:offset="1.0" android:color="#00000000" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Planetary Orbital Rings -->
+    <path
+        android:pathData="M30,340 C100,260 300,260 370,340 C300,420 100,420 30,340 Z"
+        android:strokeWidth="1.2"
+        android:strokeAlpha="0.25"
+        android:strokeColor="#E879F9" />
+
+    <path
+        android:pathData="M60,340 C120,280 280,280 340,340 C280,400 120,400 60,340 Z"
+        android:strokeWidth="0.8"
+        android:strokeAlpha="0.18"
+        android:strokeColor="#FFFFFF" />
+
+    <!-- Constellation Stars & Stardust -->
+    <path android:fillColor="#F472B6" android:fillAlpha="0.9" android:pathData="M80,120 L82,115 L87,117 L82,119 L80,124 L78,119 L73,117 L78,115 Z" />
+    <path android:fillColor="#C084FC" android:fillAlpha="0.9" android:pathData="M320,200 L322,195 L327,197 L322,199 L320,204 L318,199 L313,197 L318,195 Z" />
+    <path android:fillColor="#FFFFFF" android:fillAlpha="0.7" android:pathData="M70,480 A2,2 0 1 0 70,484 A2,2 0 1 0 70,480 Z" />
+    <path android:fillColor="#E879F9" android:fillAlpha="0.7" android:pathData="M330,520 A2.5,2.5 0 1 0 330,525 A2.5,2.5 0 1 0 330,520 Z" />
+    <path android:fillColor="#FFFFFF" android:fillAlpha="0.6" android:pathData="M180,640 A2,2 0 1 0 180,644 A2,2 0 1 0 180,640 Z" />
+
+</vector>

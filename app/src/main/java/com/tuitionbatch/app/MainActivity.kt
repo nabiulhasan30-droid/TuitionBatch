@@ -24,10 +24,10 @@ class MainActivity : ComponentActivity() {
         ViewModelFactory(application)
     }
 
-    private val requestNotificationPermissionLauncher = registerForActivityResult(
-        ActivityResultContracts.RequestPermission()
-    ) { isGranted ->
-        if (isGranted) {
+    private val requestPermissionsLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestMultiplePermissions()
+    ) { permissions ->
+        if (permissions[Manifest.permission.POST_NOTIFICATIONS] == true) {
             checkAndNotifyTodayHoliday()
         }
     }
@@ -35,17 +35,26 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Request POST_NOTIFICATIONS on Android 13+ (API 33+)
+        val requiredPerms = mutableListOf<String>()
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (ContextCompat.checkSelfPermission(
                     this,
                     Manifest.permission.POST_NOTIFICATIONS
                 ) != PackageManager.PERMISSION_GRANTED
             ) {
-                requestNotificationPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
-            } else {
-                checkAndNotifyTodayHoliday()
+                requiredPerms.add(Manifest.permission.POST_NOTIFICATIONS)
             }
+        }
+        if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.CALL_PHONE
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            requiredPerms.add(Manifest.permission.CALL_PHONE)
+        }
+
+        if (requiredPerms.isNotEmpty()) {
+            requestPermissionsLauncher.launch(requiredPerms.toTypedArray())
         } else {
             checkAndNotifyTodayHoliday()
         }

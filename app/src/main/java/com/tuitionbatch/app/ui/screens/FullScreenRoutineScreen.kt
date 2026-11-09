@@ -390,8 +390,7 @@ fun FullScreenRoutineScreen(
                                     val phone = studentsInBatch.firstOrNull { it.studentPhone.isNotBlank() }?.studentPhone
                                         ?: studentsInBatch.firstOrNull { it.guardianPhone.isNotBlank() }?.guardianPhone
                                     if (!phone.isNullOrBlank()) {
-                                        val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:$phone"))
-                                        context.startActivity(intent)
+                                        com.tuitionbatch.app.util.PhoneCallHelper.directCall(context, phone)
                                     }
                                 }
                             )

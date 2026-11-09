@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="400dp"
+    android:height="800dp"
+    android:viewportWidth="400"
+    android:viewportHeight="800">
+
+    <!-- Polar Night Sky Gradient -->
+    <path
+        android:pathData="M0,0h400v800h-400z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="linear"
+                android:startX="0"
+                android:startY="0"
+                android:endX="400"
+                android:endY="800">
+                <item android:offset="0.0" android:color="#021B17" />
+                <item android:offset="0.4" android:color="#052E2B" />
+                <item android:offset="0.75" android:color="#041E1C" />
+                <item android:offset="1.0" android:color="#01100E" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Emerald Aurora Borealis Luminous Curtain 1 -->
+    <path
+        android:pathData="M0,80 C110,40 240,160 400,90 L400,280 C270,360 140,240 0,310 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="linear"
+                android:startX="0"
+                android:startY="50"
+                android:endX="400"
+                android:endY="300">
+                <item android:offset="0.0" android:color="#0010B981" />
+                <item android:offset="0.3" android:color="#5010B981" />
+                <item android:offset="0.7" android:color="#4506B6D4" />
+                <item android:offset="1.0" android:color="#00FBBF24" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Cyan & Gold Aurora Ribbon 2 -->
+    <path
+        android:pathData="M0,220 C140,320 280,180 400,270 L400,420 C250,330 110,440 0,380 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="linear"
+                android:startX="400"
+                android:startY="200"
+                android:endX="0"
+                android:endY="400">
+                <item android:offset="0.0" android:color="#0006B6D4" />
+                <item android:offset="0.4" android:color="#3534D399" />
+                <item android:offset="0.8" android:color="#25FBBF24" />
+                <item android:offset="1.0" android:color="#0010B981" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Majestic Mountain Silhouette in Distance -->
+    <path
+        android:fillColor="#031614"
+        android:pathData="M-20,620 L80,480 L180,570 L290,440 L420,600 L420,800 L-20,800 Z" />
+
+    <!-- Pine Forest Silhouettes at Base -->
+    <path
+        android:fillColor="#010D0C"
+        android:pathData="M10,800 L30,730 L50,800 M70,800 L95,710 L120,800 M140,800 L160,740 L180,800 M210,800 L235,705 L260,800 M280,800 L305,720 L330,800 M350,800 L370,745 L390,800 Z" />
+
+    <!-- Shimmering Polar Stars -->
+    <path android:fillColor="#FFFFFF" android:fillAlpha="0.7" android:pathData="M80,80 A2,2 0 1 0 80,84 A2,2 0 1 0 80,80 Z" />
+    <path android:fillColor="#6EE7B7" android:fillAlpha="0.8" android:pathData="M240,60 A2.5,2.5 0 1 0 240,65 A2.5,2.5 0 1 0 240,60 Z" />
+    <path android:fillColor="#FDE68A" android:fillAlpha="0.8" android:pathData="M330,120 A2,2 0 1 0 330,124 A2,2 0 1 0 330,120 Z" />
+    <path android:fillColor="#FFFFFF" android:fillAlpha="0.5" android:pathData="M150,160 A1.5,1.5 0 1 0 150,163 A1.5,1.5 0 1 0 150,160 Z" />
+    <path android:fillColor="#6EE7B7" android:fillAlpha="0.6" android:pathData="M40,280 A1.8,1.8 0 1 0 40,283.6 A1.8,1.8 0 1 0 40,280 Z" />
+
+</vector>

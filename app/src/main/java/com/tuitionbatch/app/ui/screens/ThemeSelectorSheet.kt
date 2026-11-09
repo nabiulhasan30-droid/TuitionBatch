@@ -1,5 +1,6 @@
 package com.tuitionbatch.app.ui.screens
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -17,7 +18,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -115,16 +119,36 @@ fun LuxuryThemeItemCard(
         modifier = Modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(18.dp))
-            .background(themeConfig.backgroundBrush)
             .border(
                 width = if (isSelected) 2.5.dp else 1.dp,
                 color = if (isSelected) themeConfig.primary else themeConfig.cardBorder,
                 shape = RoundedCornerShape(18.dp)
             )
             .clickable { onSelect() }
-            .padding(10.dp)
     ) {
-        Column {
+        // Theme background photo preview
+        Image(
+            painter = painterResource(id = themeConfig.backgroundDrawableRes),
+            contentDescription = null,
+            modifier = Modifier.matchParentSize(),
+            contentScale = ContentScale.Crop
+        )
+
+        // Frosted glass gradient overlay
+        Box(
+            modifier = Modifier
+                .matchParentSize()
+                .background(
+                    Brush.verticalGradient(
+                        listOf(
+                            themeConfig.cardBackground.copy(alpha = if (themeConfig.isDark) 0.72f else 0.55f),
+                            themeConfig.cardBackground.copy(alpha = if (themeConfig.isDark) 0.88f else 0.75f)
+                        )
+                    )
+                )
+        )
+
+        Column(modifier = Modifier.padding(12.dp)) {
             // Theme Title & Selection Checkmark
             Row(
                 modifier = Modifier.fillMaxWidth(),

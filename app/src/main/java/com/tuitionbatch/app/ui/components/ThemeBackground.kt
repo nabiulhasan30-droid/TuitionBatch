@@ -1,6 +1,7 @@
 package com.tuitionbatch.app.ui.components
 
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,6 +12,8 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import com.tuitionbatch.app.ui.theme.AppThemeConfig
 import com.tuitionbatch.app.ui.theme.ThemeArtType
 
@@ -25,6 +28,29 @@ fun ThemeBackground(
             .fillMaxSize()
             .background(themeConfig.backgroundBrush)
     ) {
+        // 1. Color-matched scenic artistic photo / illustration
+        Image(
+            painter = painterResource(id = themeConfig.backgroundDrawableRes),
+            contentDescription = null,
+            modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.Crop
+        )
+
+        // 2. Frosted glass gradient overlay to ensure text contrast and legibility
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(
+                    Brush.verticalGradient(
+                        listOf(
+                            themeConfig.cardBackground.copy(alpha = if (themeConfig.isDark) 0.50f else 0.35f),
+                            themeConfig.cardBackground.copy(alpha = if (themeConfig.isDark) 0.70f else 0.55f),
+                            themeConfig.cardBackground.copy(alpha = if (themeConfig.isDark) 0.85f else 0.75f)
+                        )
+                    )
+                )
+        )
+
         Canvas(modifier = Modifier.fillMaxSize()) {
             val width = size.width
             val height = size.height

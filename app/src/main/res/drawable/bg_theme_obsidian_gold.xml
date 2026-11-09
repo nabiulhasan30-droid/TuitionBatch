@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="400dp"
+    android:height="800dp"
+    android:viewportWidth="400"
+    android:viewportHeight="800">
+
+    <!-- Obsidian Jet-Black Marble Base -->
+    <path
+        android:pathData="M0,0h400v800h-400z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="linear"
+                android:startX="0"
+                android:startY="0"
+                android:endX="400"
+                android:endY="800">
+                <item android:offset="0.0" android:color="#0A0A0A" />
+                <item android:offset="0.5" android:color="#141414" />
+                <item android:offset="0.8" android:color="#0D0D0D" />
+                <item android:offset="1.0" android:color="#050505" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Art Deco Gold Ambient Radial Glow -->
+    <path
+        android:pathData="M0,100h400v400h-400z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="radial"
+                android:centerX="200"
+                android:centerY="280"
+                android:gradientRadius="260">
+                <item android:offset="0.0" android:color="#28F59E0B" />
+                <item android:offset="0.55" android:color="#10D97706" />
+                <item android:offset="1.0" android:color="#00000000" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Geometric Brushed Gold Leaf Diamonds & Lattice Lines -->
+    <path
+        android:pathData="M200,60 L360,260 L200,460 L40,260 Z"
+        android:strokeWidth="1.2"
+        android:strokeAlpha="0.30"
+        android:strokeColor="#F59E0B" />
+
+    <path
+        android:pathData="M200,120 L310,260 L200,400 L90,260 Z"
+        android:strokeWidth="0.8"
+        android:strokeAlpha="0.22"
+        android:strokeColor="#FDE68A" />
+
+    <path
+        android:pathData="M200,420 L360,620 L200,820 L40,620 Z"
+        android:strokeWidth="1.2"
+        android:strokeAlpha="0.25"
+        android:strokeColor="#F59E0B" />
+
+    <path
+        android:pathData="M0,260 L400,260 M0,620 L400,620 M200,0 L200,800"
+        android:strokeWidth="0.6"
+        android:strokeAlpha="0.15"
+        android:strokeColor="#FBBF24" />
+
+    <!-- Gold Sparkles & Dust -->
+    <path android:fillColor="#FDE68A" android:fillAlpha="0.8" android:pathData="M200,260 L202,254 L207,256 L202,258 L200,264 L198,258 L193,256 L198,254 Z" />
+    <path android:fillColor="#F59E0B" android:fillAlpha="0.7" android:pathData="M90,140 A2,2 0 1 0 90,144 A2,2 0 1 0 90,140 Z" />
+    <path android:fillColor="#FDE68A" android:fillAlpha="0.8" android:pathData="M310,140 A2,2 0 1 0 310,144 A2,2 0 1 0 310,140 Z" />
+    <path android:fillColor="#F59E0B" android:fillAlpha="0.6" android:pathData="M110,680 A2.5,2.5 0 1 0 110,685 A2.5,2.5 0 1 0 110,680 Z" />
+    <path android:fillColor="#FDE68A" android:fillAlpha="0.7" android:pathData="M290,680 A2.5,2.5 0 1 0 290,685 A2.5,2.5 0 1 0 290,680 Z" />
+
+</vector>
