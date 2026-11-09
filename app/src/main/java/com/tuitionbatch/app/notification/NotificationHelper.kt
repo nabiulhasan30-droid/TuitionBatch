@@ -11,12 +11,17 @@ import android.os.Build
 import androidx.core.app.NotificationCompat
 import com.tuitionbatch.app.MainActivity
 import com.tuitionbatch.app.R
+import com.tuitionbatch.app.util.HolidayInfo
 
 object NotificationHelper {
 
     const val CHANNEL_ID = "tuition_routine_reminders"
     private const val CHANNEL_NAME = "Tuition Routine 15-Min Reminders"
     private const val CHANNEL_DESC = "Alerts 15 minutes before scheduled tuition batch classes"
+
+    const val HOLIDAY_CHANNEL_ID = "wb_holidays_channel"
+    private const val HOLIDAY_CHANNEL_NAME = "West Bengal Calendar & Holidays"
+    private const val HOLIDAY_CHANNEL_DESC = "Alerts for West Bengal government public holidays and festivals"
 
     fun createNotificationChannel(context: Context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -26,7 +31,7 @@ object NotificationHelper {
                 .setUsage(AudioAttributes.USAGE_NOTIFICATION_EVENT)
                 .build()
 
-            val channel = NotificationChannel(
+            val routineChannel = NotificationChannel(
                 CHANNEL_ID,
                 CHANNEL_NAME,
                 NotificationManager.IMPORTANCE_HIGH
@@ -39,8 +44,22 @@ object NotificationHelper {
                 setSound(soundUri, audioAttributes)
             }
 
+            val holidayChannel = NotificationChannel(
+                HOLIDAY_CHANNEL_ID,
+                HOLIDAY_CHANNEL_NAME,
+                NotificationManager.IMPORTANCE_HIGH
+            ).apply {
+                description = HOLIDAY_CHANNEL_DESC
+                enableLights(true)
+                lightColor = 0xFFE11D48.toInt()
+                enableVibration(true)
+                vibrationPattern = longArrayOf(0, 300, 150, 300)
+                setSound(soundUri, audioAttributes)
+            }
+
             val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.createNotificationChannel(channel)
+            notificationManager.createNotificationChannel(routineChannel)
+            notificationManager.createNotificationChannel(holidayChannel)
         }
     }
 
@@ -91,5 +110,59 @@ object NotificationHelper {
 
         val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.notify(batchId.toInt(), notification)
+    }
+
+    fun showHolidayNotification(
+        context: Context,
+        holiday: HolidayInfo
+    ) {
+        createNotificationChannel(context)
+
+        val intent = Intent(context, MainActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+            putExtra("EXTRA_OPEN_CALENDAR", true)
+        }
+
+        val pendingIntent = PendingIntent.getActivity(
+            context,
+            9999,
+            intent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+
+        val soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+
+        val title = if (holiday.isPublicHoliday) {
+            "🎉 আজ ${holiday.name} (পশ্চিমবঙ্গে সরকারি ছুটি)"
+        } else {
+            "✨ আজ ${holiday.name}"
+        }
+
+        val bigText = buildString {
+            if (holiday.isPublicHoliday) {
+                append("🔴 পশ্চিমবঙ্গে আজ সরকারি ছুটি!\n\n")
+            } else {
+                append("✨ উৎসব ও তাৎপর্যপূর্ণ দিবস\n\n")
+            }
+            append("📅 ${holiday.name} (${holiday.englishName})\n\n")
+            append(holiday.description)
+        }
+
+        val notification = NotificationCompat.Builder(context, HOLIDAY_CHANNEL_ID)
+            .setSmallIcon(R.drawable.ic_notification)
+            .setContentTitle(title)
+            .setContentText(holiday.description.take(80) + "...")
+            .setStyle(NotificationCompat.BigTextStyle().bigText(bigText))
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setCategory(NotificationCompat.CATEGORY_EVENT)
+            .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+            .setSound(soundUri)
+            .setAutoCancel(true)
+            .setContentIntent(pendingIntent)
+            .addAction(R.drawable.ic_notification, "ক্যালেন্ডার দেখুন", pendingIntent)
+            .build()
+
+        val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.notify(8888, notification)
     }
 }

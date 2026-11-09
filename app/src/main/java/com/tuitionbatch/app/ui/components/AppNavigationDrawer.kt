@@ -27,6 +27,7 @@ enum class DrawerDestination {
     STUDENTS,
     FEES,
     ATTENDANCE,
+    CALENDAR,
     ADD_BATCH,
     ADD_STUDENT,
     THEME_PICKER,
@@ -134,10 +135,18 @@ fun AppDrawerContent(
 
             DrawerItem(
                 title = "পড়ানোর ফুল রুটিন",
-                icon = Icons.Default.CalendarMonth,
+                icon = Icons.Default.ViewAgenda,
                 isSelected = currentDestination == DrawerDestination.ROUTINE,
                 themeConfig = themeConfig,
                 onClick = { onNavigate(DrawerDestination.ROUTINE) }
+            )
+
+            DrawerItem(
+                title = "পশ্চিমবঙ্গ চিরস্থায়ী পঞ্জিকা",
+                icon = Icons.Default.CalendarMonth,
+                isSelected = currentDestination == DrawerDestination.CALENDAR,
+                themeConfig = themeConfig,
+                onClick = { onNavigate(DrawerDestination.CALENDAR) }
             )
 
             DrawerItem(

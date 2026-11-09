@@ -5,6 +5,24 @@ import java.time.chrono.HijrahDate
 import java.time.temporal.ChronoField
 import java.util.Calendar
 
+data class BengaliDate(
+    val day: Int,
+    val monthName: String,
+    val year: Int
+) {
+    fun format(): String = "${DateHelper.toBengaliDigits(day)} $monthName ${DateHelper.toBengaliDigits(year)} বঙ্গাব্দ"
+    fun formatShort(): String = "${DateHelper.toBengaliDigits(day)} $monthName"
+}
+
+data class HijriDate(
+    val day: Int,
+    val monthName: String,
+    val year: Int
+) {
+    fun format(): String = "${DateHelper.toBengaliDigits(day)} $monthName ${DateHelper.toBengaliDigits(year)} হিজরি"
+    fun formatShort(): String = "${DateHelper.toBengaliDigits(day)} $monthName"
+}
+
 object DateHelper {
 
     private val bengaliDigits = mapOf(
@@ -16,7 +34,7 @@ object DateHelper {
         return number.toString().map { bengaliDigits[it] ?: it }.joinToString("")
     }
 
-    private val bengaliDayNames = mapOf(
+    val bengaliDayNames = mapOf(
         Calendar.SATURDAY to "শনিবার",
         Calendar.SUNDAY to "রবিবার",
         Calendar.MONDAY to "সোমবার",
@@ -26,12 +44,12 @@ object DateHelper {
         Calendar.FRIDAY to "শুক্রবার"
     )
 
-    private val englishMonthNamesInBengali = arrayOf(
+    val englishMonthNamesInBengali = arrayOf(
         "জানুয়ারি", "ফেব্রুয়ারি", "মার্চ", "এপ্রিল", "মে", "জুন",
         "জুলাই", "আগস্ট", "সেপ্টেম্বর", "অক্টোবর", "নভেম্বর", "ডিসেম্বর"
     )
 
-    private val hijriMonthNames = arrayOf(
+    val hijriMonthNames = arrayOf(
         "মহররম", "সফর", "রবিউল আউয়াল", "রবিউস সানি",
         "জুমাদাল উলা", "জুমাদাস সানি", "রজব", "শাবান",
         "রমজান", "শাওয়াল", "জিলকদ", "জিলহজ্জ"
@@ -49,14 +67,29 @@ object DateHelper {
         return "$dayOfWeek, $dayOfMonth $monthName $year"
     }
 
+    fun getEnglishDate(date: LocalDate): String {
+        val cal = Calendar.getInstance().apply {
+            set(date.year, date.monthValue - 1, date.dayOfMonth)
+        }
+        return getEnglishDate(cal)
+    }
+
     /**
      * পশ্চিমবঙ্গ (West Bengal) পঞ্জিকা ও সৌর বর্ষ গণনা নিয়ম অনুযায়ী বাংলা তারিখ
-     * যেমন: ২৩ কার্তিক ১৪৩৩ বঙ্গাব্দ
      */
     fun getWestBengalBengaliDate(cal: Calendar = Calendar.getInstance()): String {
-        val year = cal.get(Calendar.YEAR)
-        val month = cal.get(Calendar.MONTH) + 1 // 1-12
-        val day = cal.get(Calendar.DAY_OF_MONTH)
+        val localDate = LocalDate.of(
+            cal.get(Calendar.YEAR),
+            cal.get(Calendar.MONTH) + 1,
+            cal.get(Calendar.DAY_OF_MONTH)
+        )
+        return getWestBengalBengaliDate(localDate).format()
+    }
+
+    fun getWestBengalBengaliDate(date: LocalDate): BengaliDate {
+        val year = date.year
+        val month = date.monthValue
+        val day = date.dayOfMonth
 
         // পশ্চিমবঙ্গিয় পহেলা বৈশাখ প্রায় ১৫ই এপ্রিল শুরু হয়
         val bengaliYear = if (month < 4 || (month == 4 && day < 15)) {
@@ -65,7 +98,7 @@ object DateHelper {
             year - 593
         }
 
-        val isLeap = (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)
+        val isLeap = date.isLeapYear
 
         val bMonth: String
         val bDay: Int
@@ -187,29 +220,32 @@ object DateHelper {
             }
         }
 
-        return "${toBengaliDigits(bDay)} $bMonth ${toBengaliDigits(bengaliYear)} বঙ্গাব্দ"
+        return BengaliDate(bDay, bMonth, bengaliYear)
     }
 
     /**
      * ইসলামিক উম্মুল কুরা / হিজরি ক্যালেন্ডার অনুযায়ী আরবি তারিখ ও মাস
-     * যেমন: ২৯ জুমাদাল উলা ১৪৪৮ হিজরি
      */
     fun getArabicHijriDate(cal: Calendar = Calendar.getInstance()): String {
+        val localDate = LocalDate.of(
+            cal.get(Calendar.YEAR),
+            cal.get(Calendar.MONTH) + 1,
+            cal.get(Calendar.DAY_OF_MONTH)
+        )
+        return getArabicHijriDate(localDate).format()
+    }
+
+    fun getArabicHijriDate(date: LocalDate): HijriDate {
         return try {
-            val localDate = LocalDate.of(
-                cal.get(Calendar.YEAR),
-                cal.get(Calendar.MONTH) + 1,
-                cal.get(Calendar.DAY_OF_MONTH)
-            )
-            val hijrahDate = HijrahDate.from(localDate)
+            val hijrahDate = HijrahDate.from(date)
             val hDay = hijrahDate.get(ChronoField.DAY_OF_MONTH)
             val hMonth = hijrahDate.get(ChronoField.MONTH_OF_YEAR) // 1-12
             val hYear = hijrahDate.get(ChronoField.YEAR_OF_ERA)
 
             val monthName = hijriMonthNames.getOrElse(hMonth - 1) { "আরবি" }
-            "${toBengaliDigits(hDay)} $monthName ${toBengaliDigits(hYear)} হিজরি"
+            HijriDate(hDay, monthName, hYear)
         } catch (e: Exception) {
-            "আরবি তারিখ"
+            HijriDate(1, "আরবি", 1448)
         }
     }
 }

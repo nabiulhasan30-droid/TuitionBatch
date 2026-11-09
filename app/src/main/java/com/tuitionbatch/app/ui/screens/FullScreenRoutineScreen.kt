@@ -39,6 +39,7 @@ fun FullScreenRoutineScreen(
     viewModel: MainViewModel,
     themeConfig: AppThemeConfig,
     onOpenDrawer: () -> Unit,
+    onOpenCalendar: () -> Unit,
     onOpenThemePicker: () -> Unit,
     onOpenBatchDetail: (Long) -> Unit
 ) {
@@ -105,7 +106,7 @@ fun FullScreenRoutineScreen(
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 12.dp, vertical = 6.dp),
+                        .padding(horizontal = 8.dp, vertical = 6.dp),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
@@ -125,76 +126,164 @@ fun FullScreenRoutineScreen(
                         )
                     }
 
-                    // ২. সবার উপরে ইংরেজি তারিখ, নিচে পশ্চিমবঙ্গীয় বাংলা ও হিজরি আরবি তারিখ
-                    Column(
-                        horizontalAlignment = Alignment.CenterHorizontally,
+                    // ১. তিনটি তারিখ একসাথে একটি স্টাইলিশ অসাধারণ বাক্সে (Header Date Trio Box)
+                    Surface(
                         modifier = Modifier
                             .weight(1f)
                             .padding(horizontal = 6.dp)
-                    ) {
-                        // ইংরেজি তারিখ
-                        Text(
-                            text = englishDateStr,
-                            style = MaterialTheme.typography.titleMedium.copy(
-                                fontSize = 14.5.sp,
-                                fontWeight = FontWeight.ExtraBold,
-                                letterSpacing = 0.2.sp
-                            ),
-                            color = themeConfig.englishDateColor,
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis
+                            .clip(RoundedCornerShape(14.dp))
+                            .clickable { onOpenCalendar() },
+                        shape = RoundedCornerShape(14.dp),
+                        color = themeConfig.cardBackground.copy(alpha = 0.88f),
+                        border = androidx.compose.foundation.BorderStroke(
+                            width = 1.2.dp,
+                            brush = Brush.horizontalGradient(
+                                listOf(
+                                    themeConfig.primary.copy(alpha = 0.65f),
+                                    themeConfig.cardBorder,
+                                    themeConfig.accent.copy(alpha = 0.55f)
+                                )
+                            )
                         )
-
-                        Spacer(modifier = Modifier.height(2.dp))
-
-                        // বাংলা তারিখ মাস (পশ্চিমবঙ্গ) ও আরবি তারিখ মাস
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.Center
+                    ) {
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .background(
+                                    Brush.verticalGradient(
+                                        listOf(
+                                            themeConfig.primary.copy(alpha = 0.08f),
+                                            Color.Transparent
+                                        )
+                                    )
+                                )
+                                .padding(horizontal = 6.dp, vertical = 4.dp)
                         ) {
-                            Text(
-                                text = bengaliDateStr,
-                                style = MaterialTheme.typography.labelSmall.copy(
-                                    fontSize = 11.sp,
-                                    fontWeight = FontWeight.Bold
-                                ),
-                                color = themeConfig.bengaliDateColor
-                            )
+                            // ইংরেজি তারিখ
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.Center
+                            ) {
+                                Icon(
+                                    Icons.Default.DateRange,
+                                    contentDescription = null,
+                                    tint = themeConfig.primary,
+                                    modifier = Modifier.size(12.dp)
+                                )
+                                Spacer(modifier = Modifier.width(4.dp))
+                                Text(
+                                    text = englishDateStr,
+                                    style = MaterialTheme.typography.titleMedium.copy(
+                                        fontSize = 13.sp,
+                                        fontWeight = FontWeight.Black,
+                                        letterSpacing = 0.1.sp
+                                    ),
+                                    color = themeConfig.englishDateColor,
+                                    maxLines = 1,
+                                    overflow = TextOverflow.Ellipsis
+                                )
+                            }
 
-                            Text(
-                                text = " • ",
-                                style = MaterialTheme.typography.labelSmall.copy(
-                                    fontSize = 11.sp,
-                                    fontWeight = FontWeight.Bold
-                                ),
-                                color = themeConfig.textSecondary.copy(alpha = 0.5f)
-                            )
+                            Spacer(modifier = Modifier.height(2.5.dp))
 
-                            Text(
-                                text = arabicDateStr,
-                                style = MaterialTheme.typography.labelSmall.copy(
-                                    fontSize = 11.sp,
-                                    fontWeight = FontWeight.Bold
-                                ),
-                                color = themeConfig.arabicDateColor
-                            )
+                            // বাংলা ও আরবি তারিখ ক্যাপসুল
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.Center,
+                                modifier = Modifier.fillMaxWidth()
+                            ) {
+                                // পশ্চিমবঙ্গীয় বাংলা তারিখ
+                                Box(
+                                    modifier = Modifier
+                                        .clip(RoundedCornerShape(5.dp))
+                                        .background(themeConfig.bengaliDateColor.copy(alpha = 0.12f))
+                                        .border(
+                                            0.5.dp,
+                                            themeConfig.bengaliDateColor.copy(alpha = 0.35f),
+                                            RoundedCornerShape(5.dp)
+                                        )
+                                        .padding(horizontal = 4.dp, vertical = 1.dp)
+                                ) {
+                                    Text(
+                                        text = "🌾 $bengaliDateStr",
+                                        style = MaterialTheme.typography.labelSmall.copy(
+                                            fontSize = 9.5.sp,
+                                            fontWeight = FontWeight.Bold
+                                        ),
+                                        color = themeConfig.bengaliDateColor,
+                                        maxLines = 1,
+                                        overflow = TextOverflow.Ellipsis
+                                    )
+                                }
+
+                                Spacer(modifier = Modifier.width(4.dp))
+
+                                // আরবি হিজরি তারিখ
+                                Box(
+                                    modifier = Modifier
+                                        .clip(RoundedCornerShape(5.dp))
+                                        .background(themeConfig.arabicDateColor.copy(alpha = 0.12f))
+                                        .border(
+                                            0.5.dp,
+                                            themeConfig.arabicDateColor.copy(alpha = 0.35f),
+                                            RoundedCornerShape(5.dp)
+                                        )
+                                        .padding(horizontal = 4.dp, vertical = 1.dp)
+                                ) {
+                                    Text(
+                                        text = "🌙 $arabicDateStr",
+                                        style = MaterialTheme.typography.labelSmall.copy(
+                                            fontSize = 9.5.sp,
+                                            fontWeight = FontWeight.Bold
+                                        ),
+                                        color = themeConfig.arabicDateColor,
+                                        maxLines = 1,
+                                        overflow = TextOverflow.Ellipsis
+                                    )
+                                }
+                            }
                         }
                     }
 
-                    // Theme selector button
-                    IconButton(
-                        onClick = onOpenThemePicker,
-                        modifier = Modifier
-                            .size(38.dp)
-                            .clip(RoundedCornerShape(12.dp))
-                            .background(themeConfig.cardBackground)
-                            .border(1.dp, themeConfig.cardBorder, RoundedCornerShape(12.dp))
+                    // Top Right Action Buttons: Calendar & Themes
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(4.dp)
                     ) {
-                        Icon(
-                            Icons.Default.Palette,
-                            contentDescription = "Themes",
-                            tint = themeConfig.primary
-                        )
+                        // Calendar Button (যেখানে উপরের ডান কোনায় themes আছে সেখানে ক্যালেন্ডার)
+                        IconButton(
+                            onClick = onOpenCalendar,
+                            modifier = Modifier
+                                .size(36.dp)
+                                .clip(RoundedCornerShape(11.dp))
+                                .background(themeConfig.cardBackground)
+                                .border(1.dp, themeConfig.accent.copy(alpha = 0.6f), RoundedCornerShape(11.dp))
+                        ) {
+                            Icon(
+                                Icons.Default.CalendarMonth,
+                                contentDescription = "West Bengal Calendar",
+                                tint = themeConfig.accent,
+                                modifier = Modifier.size(19.dp)
+                            )
+                        }
+
+                        // Theme selector button
+                        IconButton(
+                            onClick = onOpenThemePicker,
+                            modifier = Modifier
+                                .size(36.dp)
+                                .clip(RoundedCornerShape(11.dp))
+                                .background(themeConfig.cardBackground)
+                                .border(1.dp, themeConfig.cardBorder, RoundedCornerShape(11.dp))
+                        ) {
+                            Icon(
+                                Icons.Default.Palette,
+                                contentDescription = "Themes",
+                                tint = themeConfig.primary,
+                                modifier = Modifier.size(19.dp)
+                            )
+                        }
                     }
                 }
             }

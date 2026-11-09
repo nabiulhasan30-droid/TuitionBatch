@@ -15,7 +15,8 @@ import kotlinx.coroutines.launch
 @Composable
 fun MainScreen(
     viewModel: MainViewModel,
-    initialBatchId: Long? = null
+    initialBatchId: Long? = null,
+    initialOpenCalendar: Boolean = false
 ) {
     val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
@@ -28,6 +29,7 @@ fun MainScreen(
     var viewingBatchDetailId by remember { mutableStateOf<Long?>(initialBatchId) }
 
     var showThemeDialog by remember { mutableStateOf(false) }
+    var showCalendarDialog by remember { mutableStateOf(initialOpenCalendar) }
     var showAddBatchDialog by remember { mutableStateOf(false) }
     var showAddStudentDialog by remember { mutableStateOf(false) }
     var showAlarmInfoDialog by remember { mutableStateOf(false) }
@@ -47,6 +49,7 @@ fun MainScreen(
                     coroutineScope.launch { drawerState.close() }
                     when (destination) {
                         DrawerDestination.ROUTINE -> currentDestination = DrawerDestination.ROUTINE
+                        DrawerDestination.CALENDAR -> showCalendarDialog = true
                         DrawerDestination.BATCHES -> currentDestination = DrawerDestination.BATCHES
                         DrawerDestination.STUDENTS -> currentDestination = DrawerDestination.STUDENTS
                         DrawerDestination.FEES -> currentDestination = DrawerDestination.FEES
@@ -75,6 +78,7 @@ fun MainScreen(
                             viewModel = viewModel,
                             themeConfig = currentThemeConfig,
                             onOpenDrawer = { coroutineScope.launch { drawerState.open() } },
+                            onOpenCalendar = { showCalendarDialog = true },
                             onOpenThemePicker = { showThemeDialog = true },
                             onOpenBatchDetail = { batchId -> viewingBatchDetailId = batchId }
                         )
@@ -114,6 +118,7 @@ fun MainScreen(
                             viewModel = viewModel,
                             themeConfig = currentThemeConfig,
                             onOpenDrawer = { coroutineScope.launch { drawerState.open() } },
+                            onOpenCalendar = { showCalendarDialog = true },
                             onOpenThemePicker = { showThemeDialog = true },
                             onOpenBatchDetail = { batchId -> viewingBatchDetailId = batchId }
                         )
@@ -121,6 +126,13 @@ fun MainScreen(
                 }
             }
         }
+    }
+
+    if (showCalendarDialog) {
+        WestBengalCalendarDialog(
+            themeConfig = currentThemeConfig,
+            onDismiss = { showCalendarDialog = false }
+        )
     }
 
     if (showThemeDialog) {
