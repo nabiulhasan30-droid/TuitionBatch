@@ -163,7 +163,7 @@ fun DashboardScreen(
                         iconColor = EmeraldGreen,
                         modifier = Modifier
                             .weight(1f)
-                            .clickable { onNavigateToRoutine() }
+                            .clickable { onNavigateToBatches() }
                     )
                 }
                 Row(
