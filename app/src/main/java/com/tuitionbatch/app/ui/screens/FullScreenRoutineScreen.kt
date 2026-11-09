@@ -246,19 +246,28 @@ fun FullScreenRoutineScreen(
                         }
                     }
 
-                    // Top Right Action Buttons: Calendar & Themes
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(4.dp)
+                    // Top Right Action: Stylish Dedicated Calendar Button
+                    Surface(
+                        onClick = onOpenCalendar,
+                        modifier = Modifier
+                            .height(38.dp)
+                            .clip(RoundedCornerShape(12.dp)),
+                        shape = RoundedCornerShape(12.dp),
+                        color = themeConfig.cardBackground,
+                        border = androidx.compose.foundation.BorderStroke(
+                            width = 1.2.dp,
+                            brush = Brush.linearGradient(
+                                listOf(
+                                    themeConfig.accent,
+                                    themeConfig.primary.copy(alpha = 0.8f)
+                                )
+                            )
+                        )
                     ) {
-                        // Calendar Button (যেখানে উপরের ডান কোনায় themes আছে সেখানে ক্যালেন্ডার)
-                        IconButton(
-                            onClick = onOpenCalendar,
-                            modifier = Modifier
-                                .size(36.dp)
-                                .clip(RoundedCornerShape(11.dp))
-                                .background(themeConfig.cardBackground)
-                                .border(1.dp, themeConfig.accent.copy(alpha = 0.6f), RoundedCornerShape(11.dp))
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.Center,
+                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 6.dp)
                         ) {
                             Icon(
                                 Icons.Default.CalendarMonth,
@@ -266,22 +275,15 @@ fun FullScreenRoutineScreen(
                                 tint = themeConfig.accent,
                                 modifier = Modifier.size(19.dp)
                             )
-                        }
-
-                        // Theme selector button
-                        IconButton(
-                            onClick = onOpenThemePicker,
-                            modifier = Modifier
-                                .size(36.dp)
-                                .clip(RoundedCornerShape(11.dp))
-                                .background(themeConfig.cardBackground)
-                                .border(1.dp, themeConfig.cardBorder, RoundedCornerShape(11.dp))
-                        ) {
-                            Icon(
-                                Icons.Default.Palette,
-                                contentDescription = "Themes",
-                                tint = themeConfig.primary,
-                                modifier = Modifier.size(19.dp)
+                            Spacer(modifier = Modifier.width(4.dp))
+                            Text(
+                                text = "পঞ্জিকা",
+                                style = MaterialTheme.typography.labelMedium.copy(
+                                    fontWeight = FontWeight.ExtraBold,
+                                    fontSize = 11.5.sp,
+                                    letterSpacing = 0.2.sp
+                                ),
+                                color = themeConfig.accent
                             )
                         }
                     }

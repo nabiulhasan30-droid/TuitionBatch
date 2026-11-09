@@ -186,15 +186,94 @@ fun AppDrawerContent(
                 color = themeConfig.cardBorder.copy(alpha = 0.5f)
             )
 
-            DrawerSectionHeader("কুইক অ্যাকশন ও সেটিংস")
+            DrawerSectionHeader("অ্যাপ থিম ও কালার")
 
-            DrawerItem(
-                title = "🎨 ১০টি প্রিমিয়াম থিম পরিবর্তন",
-                icon = Icons.Default.Palette,
-                isSelected = false,
-                themeConfig = themeConfig,
-                onClick = { onNavigate(DrawerDestination.THEME_PICKER) }
-            )
+            // Featured Theme Selector Card in Drawer
+            Surface(
+                onClick = { onNavigate(DrawerDestination.THEME_PICKER) },
+                shape = RoundedCornerShape(14.dp),
+                color = themeConfig.cardBackground.copy(alpha = 0.9f),
+                border = androidx.compose.foundation.BorderStroke(
+                    width = 1.2.dp,
+                    brush = Brush.horizontalGradient(
+                        listOf(
+                            themeConfig.primary,
+                            themeConfig.accent
+                        )
+                    )
+                ),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 14.dp, vertical = 4.dp)
+            ) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(12.dp)
+                ) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Box(
+                                modifier = Modifier
+                                    .size(34.dp)
+                                    .clip(RoundedCornerShape(10.dp))
+                                    .background(themeConfig.primary.copy(alpha = 0.2f)),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                Icon(
+                                    Icons.Default.Palette,
+                                    contentDescription = "Themes",
+                                    tint = themeConfig.primary,
+                                    modifier = Modifier.size(20.dp)
+                                )
+                            }
+                            Spacer(modifier = Modifier.width(10.dp))
+                            Column {
+                                Text(
+                                    text = "🎨 ১০টি প্রিমিয়াম থিম",
+                                    style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold),
+                                    color = themeConfig.textPrimary
+                                )
+                                Text(
+                                    text = "বর্তমান: ${themeConfig.name}",
+                                    style = MaterialTheme.typography.labelSmall.copy(fontSize = 11.sp),
+                                    color = themeConfig.primary
+                                )
+                            }
+                        }
+
+                        // Theme Color Preview Dots
+                        Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+                            Box(
+                                modifier = Modifier
+                                    .size(14.dp)
+                                    .clip(CircleShape)
+                                    .background(themeConfig.primary)
+                            )
+                            Box(
+                                modifier = Modifier
+                                    .size(14.dp)
+                                    .clip(CircleShape)
+                                    .background(themeConfig.accent)
+                            )
+                            Box(
+                                modifier = Modifier
+                                    .size(14.dp)
+                                    .clip(CircleShape)
+                                    .background(themeConfig.secondary)
+                            )
+                        }
+                    }
+                }
+            }
+
+            Spacer(modifier = Modifier.height(6.dp))
+
+            DrawerSectionHeader("কুইক অ্যাকশন ও অন্যান্য")
 
             DrawerItem(
                 title = "➕ নতুন ব্যাচ তৈরি করুন",

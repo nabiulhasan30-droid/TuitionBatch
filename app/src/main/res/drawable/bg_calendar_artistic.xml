@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="400dp"
+    android:height="800dp"
+    android:viewportWidth="400"
+    android:viewportHeight="800">
+
+    <!-- Atmospheric Deep Cosmic Night Sky Gradient Base -->
+    <path
+        android:pathData="M0,0h400v800h-400z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="linear"
+                android:startX="0"
+                android:startY="0"
+                android:endX="400"
+                android:endY="800">
+                <item android:offset="0.0" android:color="#0B132B" />
+                <item android:offset="0.3" android:color="#1C2541" />
+                <item android:offset="0.65" android:color="#0F172A" />
+                <item android:offset="1.0" android:color="#1E1B4B" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Glowing Celestial Nebula Orbs & Clouds -->
+    <!-- Cyan Luminous Aura (Top Left) -->
+    <path
+        android:pathData="M -80,-80 C 120,-80 200,80 180,220 C 160,340 40,320 -60,260 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="radial"
+                android:centerX="60"
+                android:centerY="80"
+                android:gradientRadius="260">
+                <item android:offset="0.0" android:color="#3506B6D4" />
+                <item android:offset="0.5" android:color="#180284C7" />
+                <item android:offset="1.0" android:color="#00000000" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Royal Violet Nebula Glow (Center Right) -->
+    <path
+        android:pathData="M 480,260 C 480,440 320,520 220,460 C 120,400 180,260 280,220 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="radial"
+                android:centerX="360"
+                android:centerY="360"
+                android:gradientRadius="280">
+                <item android:offset="0.0" android:color="#358B5CF6" />
+                <item android:offset="0.6" android:color="#126366F1" />
+                <item android:offset="1.0" android:color="#00000000" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Golden Horizon Glow (Bottom) -->
+    <path
+        android:pathData="M -50,600 C 100,520 300,540 450,620 L 450,850 L -50,850 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="radial"
+                android:centerX="200"
+                android:centerY="750"
+                android:gradientRadius="240">
+                <item android:offset="0.0" android:color="#28F59E0B" />
+                <item android:offset="0.5" android:color="#12D97706" />
+                <item android:offset="1.0" android:color="#00000000" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Translucent Celestial Geometrics & Orbit Rings -->
+    <path
+        android:pathData="M 200,80 A 180,180 0 1 0 200,440 A 180,180 0 1 0 200,80 Z"
+        android:strokeWidth="1.2"
+        android:strokeAlpha="0.12"
+        android:strokeColor="#FFFFFF" />
+
+    <path
+        android:pathData="M 200,140 A 120,120 0 1 0 200,380 A 120,120 0 1 0 200,140 Z"
+        android:strokeWidth="0.8"
+        android:strokeAlpha="0.10"
+        android:strokeColor="#38BDF8" />
+
+    <path
+        android:pathData="M 50,480 L 350,480"
+        android:strokeWidth="0.6"
+        android:strokeAlpha="0.15"
+        android:strokeColor="#FCD34D" />
+
+    <!-- Distant Constellation Stars & Sparkles -->
+    <!-- Large Sparkle 1 -->
+    <path
+        android:fillColor="#FDE68A"
+        android:fillAlpha="0.7"
+        android:pathData="M70,95 L72,90 L77,92 L72,94 L70,99 L68,94 L63,92 L68,90 Z" />
+
+    <!-- Large Sparkle 2 -->
+    <path
+        android:fillColor="#38BDF8"
+        android:fillAlpha="0.75"
+        android:pathData="M330,160 L332,154 L338,156 L332,158 L330,164 L328,158 L322,156 L328,154 Z" />
+
+    <!-- Large Sparkle 3 -->
+    <path
+        android:fillColor="#C084FC"
+        android:fillAlpha="0.6"
+        android:pathData="M110,380 L111,376 L115,377 L111,378 L110,382 L109,378 L105,377 L109,376 Z" />
+
+    <!-- Glowing Stars / Dots -->
+    <path android:fillColor="#FFFFFF" android:fillAlpha="0.5" android:pathData="M40,180 A2,2 0 1 0 40,184 A2,2 0 1 0 40,180 Z" />
+    <path android:fillColor="#FFFFFF" android:fillAlpha="0.6" android:pathData="M160,50 A1.5,1.5 0 1 0 160,53 A1.5,1.5 0 1 0 160,50 Z" />
+    <path android:fillColor="#38BDF8" android:fillAlpha="0.6" android:pathData="M270,70 A2,2 0 1 0 270,74 A2,2 0 1 0 270,70 Z" />
+    <path android:fillColor="#FDE68A" android:fillAlpha="0.5" android:pathData="M350,290 A1.8,1.8 0 1 0 350,293.6 A1.8,1.8 0 1 0 350,290 Z" />
+    <path android:fillColor="#FFFFFF" android:fillAlpha="0.4" android:pathData="M50,560 A2,2 0 1 0 50,564 A2,2 0 1 0 50,560 Z" />
+    <path android:fillColor="#C084FC" android:fillAlpha="0.5" android:pathData="M310,640 A2.2,2.2 0 1 0 310,644.4 A2.2,2.2 0 1 0 310,640 Z" />
+    <path android:fillColor="#38BDF8" android:fillAlpha="0.4" android:pathData="M180,690 A1.8,1.8 0 1 0 180,693.6 A1.8,1.8 0 1 0 180,690 Z" />
+
+</vector>

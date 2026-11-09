@@ -1,10 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
     android:width="108dp"
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
+
+    <!-- Base Rounded Background Gradient (Deep Navy to Royal Cosmic Indigo) -->
     <path
-        android:fillColor="#1E3A8A"
-        android:pathData="M0,0h108v108h-108z"/>
+        android:pathData="M0,0h108v108h-108z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="linear"
+                android:startX="0"
+                android:startY="0"
+                android:endX="108"
+                android:endY="108">
+                <item android:offset="0.0" android:color="#070D1E" />
+                <item android:offset="0.45" android:color="#0F2454" />
+                <item android:offset="0.8" android:color="#1A3B8B" />
+                <item android:offset="1.0" android:color="#0D1B3E" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Ambient Cyan Radial Glow in Upper Center -->
+    <path
+        android:pathData="M14,0h80v80h-80z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="radial"
+                android:centerX="54"
+                android:centerY="38"
+                android:gradientRadius="48">
+                <item android:offset="0.0" android:color="#5000F5FF" />
+                <item android:offset="0.5" android:color="#200284C7" />
+                <item android:offset="1.0" android:color="#00000000" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Warm Amber Horizon Glow at Bottom -->
+    <path
+        android:pathData="M0,74h108v34h-108z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="radial"
+                android:centerX="54"
+                android:centerY="100"
+                android:gradientRadius="50">
+                <item android:offset="0.0" android:color="#40F59E0B" />
+                <item android:offset="0.6" android:color="#15D97706" />
+                <item android:offset="1.0" android:color="#00000000" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Subtle Tech Concentric Precision Guide Rings -->
+    <path
+        android:pathData="M54,18 A36,36 0 1 0 54,90 A36,36 0 1 0 54,18 Z"
+        android:strokeWidth="0.8"
+        android:strokeAlpha="0.18"
+        android:strokeColor="#38BDF8" />
+
+    <path
+        android:pathData="M54,24 A30,30 0 1 0 54,84 A30,30 0 1 0 54,24 Z"
+        android:strokeWidth="0.5"
+        android:strokeAlpha="0.12"
+        android:strokeColor="#FFFFFF" />
+
 </vector>

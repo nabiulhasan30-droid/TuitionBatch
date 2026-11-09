@@ -49,6 +49,25 @@ object DateHelper {
         "জুলাই", "আগস্ট", "সেপ্টেম্বর", "অক্টোবর", "নভেম্বর", "ডিসেম্বর"
     )
 
+    val englishMonthNames = arrayOf(
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+    )
+
+    val englishDayNames = arrayOf(
+        "Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"
+    )
+
+    fun getEnglishFormattedDate(date: LocalDate): String {
+        val monthName = englishMonthNames.getOrElse(date.monthValue - 1) { date.month.name }
+        return "${date.dayOfMonth} $monthName ${date.year}"
+    }
+
+    fun getEnglishMonthHeader(monthValue: Int, year: Int): String {
+        val monthName = englishMonthNames.getOrElse(monthValue - 1) { "" }
+        return "$monthName $year"
+    }
+
     val hijriMonthNames = arrayOf(
         "মহররম", "সফর", "রবিউল আউয়াল", "রবিউস সানি",
         "জুমাদাল উলা", "জুমাদাস সানি", "রজব", "শাবান",
