@@ -13,12 +13,26 @@ android {
         applicationId = "com.tuitionbatch.app"
         minSdk = 26
         targetSdk = 34
-        versionCode = 14
-        versionName = "1.0.0-14"
+        versionCode = 15
+        versionName = "1.0.0-15"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
+        }
+    }
+
+    signingConfigs {
+        create("release") {
+            val keystoreFile = rootProject.file("android_keystore.jks")
+            if (keystoreFile.exists()) {
+                storeFile = keystoreFile
+                storePassword = "noorpassword123"
+                keyAlias = "noorkey"
+                keyPassword = "noorpassword123"
+                enableV1Signing = true
+                enableV2Signing = true
+            }
         }
     }
 
@@ -29,6 +43,16 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            val keystoreFile = rootProject.file("android_keystore.jks")
+            if (keystoreFile.exists()) {
+                signingConfig = signingConfigs.getByName("release")
+            }
+        }
+        debug {
+            val keystoreFile = rootProject.file("android_keystore.jks")
+            if (keystoreFile.exists()) {
+                signingConfig = signingConfigs.getByName("release")
+            }
         }
     }
     compileOptions {
